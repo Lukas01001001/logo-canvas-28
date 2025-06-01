@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+/* :root {
+  --background: #ffffff;
+  --foreground: #171717;
+} */
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ====================                    ===================== */
+/* ----------------    🌐 Export Mode Styling     ------------- */
+/* ====================                    =====================*/
+/* These styles are applied temporarily during PNG export.
+   They remove borders and checkboxes to produce a clean image.
+   Triggered by: document.body.classList.add("export-mode")
+*/
+
+body.export-mode #logo-canvas {
+  border: none !important;
+}
+
+body.export-mode #logo-canvas input[type="checkbox"] {
+  display: none !important;
+}
+
+body.export-mode #logo-canvas img {
+  border: none !important;
+}
+
+/* Hide the toggle button during PNG export */
+body.export-mode #logo-canvas .canvas-toggle-btn {
+  display: none !important;
+}
+/****************** ******** ********************/
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) translateX(-50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateX(-50%);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
