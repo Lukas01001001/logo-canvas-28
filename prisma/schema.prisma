@@ -22,6 +22,7 @@ model User {
   email    String   @unique
   name     String?  // from Google you can download the name, it is not required
   image    String?  // url to the avatar from Google
+  role     String   @default("user") // : "user" | "admin"
   accounts Account[] // NextAuth
   sessions Session[] // NextAuth
   clients  Client[]
