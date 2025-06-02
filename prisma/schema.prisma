@@ -19,8 +19,9 @@ datasource db {
 
 model User {
   id       Int      @id @default(autoincrement())
-  email    String   @unique
   name     String?  // from Google you can download the name, it is not required
+  email    String   @unique
+  emailVerified  DateTime?
   image    String?  // url to the avatar from Google
   role     String   @default("user") // : "user" | "admin"
   accounts Account[] // NextAuth
