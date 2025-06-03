@@ -4,23 +4,33 @@ import { prisma } from "@/lib/db";
 import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-// export async function PUT(
-//   req: Request,
-//   { params }: { params: { id: string } }
-// ) {
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../auth/[...nextauth]/route";
 
-// export async function PUT(
-//   req: Request,
-//   { params }: { params: Record<string, string> }
-// ) {
-// params.id
-
-//export async function PUT(req: Request, { params }) {
-// params.id
 export const runtime = "nodejs";
 
 export async function PUT(req: Request, { params }: any) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const userId = Number(session.user.id);
+
+    const clientId = parseInt(params.id);
+    if (isNaN(clientId)) {
+      return NextResponse.json({ error: "Invalid client ID" }, { status: 400 });
+    }
+
+    // Check if the customer belongs to the user!
+    const existing = await prisma.client.findUnique({
+      where: { id: clientId },
+      select: { userId: true },
+    });
+    if (!existing || existing.userId !== userId) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+
     const formData = await req.formData();
     const name = formData.get("name")?.toString().trim();
     const address = formData.get("address")?.toString().trim();
@@ -33,47 +43,35 @@ export async function PUT(req: Request, { params }: any) {
         { status: 400 }
       );
     }
-
     if (!industryName) {
-      // validation industry name
       return NextResponse.json(
         { error: "Industry name is required." },
         { status: 400 }
       );
     }
 
-    // find or create an industry
     let industry = await prisma.industry.findFirst({
       where: { name: { equals: industryName, mode: "insensitive" } },
     });
-
     if (!industry) {
-      industry = await prisma.industry.create({
-        data: { name: industryName },
-      });
+      industry = await prisma.industry.create({ data: { name: industryName } });
     }
 
+    // Prepare data for update
     const updateData: Prisma.ClientUpdateInput = {
       name,
       address,
       industry: { connect: { id: industry.id } },
-      ...(file && file.size > 0
-        ? {
-            logoBlob: Buffer.from(await file.arrayBuffer()),
-            logoType: file.type,
-          }
-        : {}),
     };
 
-    if (file && file.size > 0) {
+    if (file && file.size > 0 && file.type.startsWith("image/")) {
       const arrayBuffer = await file.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
-      updateData.logoBlob = buffer;
+      updateData.logoBlob = Buffer.from(arrayBuffer);
       updateData.logoType = file.type;
     }
 
     const updated = await prisma.client.update({
-      where: { id: parseInt(params.id) },
+      where: { id: clientId },
       data: updateData,
     });
 
@@ -88,31 +86,28 @@ export async function PUT(req: Request, { params }: any) {
   }
 }
 
-// export async function DELETE(
-//   _: Request,
-//   { params }: { params: { id: string } }
-// ) {
-
-// export async function DELETE(
-//   req: Request,
-//   { params }: { params: Record<string, string> }
-// ) {
-// params.id
-
-// export async function DELETE(req: Request, { params }) {
-
 export async function DELETE(req: Request, { params }: any) {
   try {
-    const clientId = parseInt(params.id);
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
+    const userId = Number(session.user.id);
+
+    const clientId = parseInt(params.id);
+    if (isNaN(clientId)) {
+      return NextResponse.json({ error: "Invalid client ID" }, { status: 400 });
+    }
     // 1. Get the customer's industry before deleting
+    // and Check if the customer belongs to the user!!!
     const client = await prisma.client.findUnique({
       where: { id: clientId },
-      select: { industryId: true },
+      select: { industryId: true, userId: true },
     });
 
-    if (!client) {
-      return NextResponse.json({ error: "Client not found." }, { status: 404 });
+    if (!client || client.userId !== userId) {
+      return NextResponse.json({ error: "Not found." }, { status: 404 });
     }
 
     // 2. Remove customer

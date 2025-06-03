@@ -5,7 +5,17 @@ import { prisma } from "@/lib/db";
 import { promises as fs } from "fs";
 import path from "path";
 
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
+
 export async function GET(req: Request) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const userId = Number(session.user.id);
+
   const { searchParams } = new URL(req.url);
 
   const name = searchParams.get("name")?.toLowerCase() || "";
@@ -15,8 +25,10 @@ export async function GET(req: Request) {
   const skip = parseInt(searchParams.get("skip") || "0");
 
   const limit = Math.min(parseInt(searchParams.get("limit") || "20"), 100);
+
   const clients = await prisma.client.findMany({
     where: {
+      userId,
       AND: [
         name
           ? {
@@ -65,6 +77,13 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const userId = Number(session.user.id);
+
     const formData = await req.formData();
 
     const name = formData.get("name")?.toString().trim();
@@ -126,6 +145,7 @@ export async function POST(req: Request) {
         logoBlob: buffer,
         logoType: type,
         industry: { connect: { id: industry.id } },
+        user: { connect: { id: userId } }, // assignment to user!
       },
     });
 
