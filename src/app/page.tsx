@@ -2,11 +2,12 @@
 
 "use client";
 
-import Link from "next/link";
+import { signIn, useSession } from "next-auth/react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Spinner from "@/components/ui/Spinner";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useSession, signIn, signOut } from "next-auth/react";
-import Spinner from "@/components/ui/Spinner";
 
 // dynamic import framer-motion
 const MotionDiv = dynamic(
@@ -23,8 +24,25 @@ const MotionP = dynamic(
 );
 
 export default function HomePage() {
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
+  const { status } = useSession();
+  const router = useRouter();
 
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.replace("/clients");
+    }
+  }, [status, router]);
+
+  if (status === "loading") {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 to-pink-900 text-white">
+        <Spinner />
+      </main>
+    );
+  }
+
+  // User not logged in – show welcome screen
   return (
     <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 to-pink-900 text-white relative overflow-hidden">
       <Image
@@ -59,55 +77,18 @@ export default function HomePage() {
           Efficient. Custom.
         </MotionP>
 
-        {status === "loading" ? (
-          <Spinner />
-        ) : session ? (
-          <>
-            <div className="flex items-center justify-center gap-3 mb-2">
-              {session.user.image && (
-                <img
-                  src={session.user.image}
-                  alt="avatar"
-                  className="w-8 h-8 rounded-full"
-                />
-              )}
-              <span className="text-white">{session.user.email}</span>
-            </div>
-
-            <MotionDiv
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-block mb-3"
-            >
-              <Link
-                href="/clients"
-                className="px-6 py-3 bg-white text-blue-900 font-semibold rounded-full shadow-lg transition hover:bg-blue-100"
-              >
-                Go to your Clients →
-              </Link>
-            </MotionDiv>
-            <br />
-            <button
-              onClick={() => signOut()}
-              className="text-sm text-white underline hover:text-blue-200"
-            >
-              Sign out ({session.user.email})
-            </button>
-          </>
-        ) : (
-          <MotionDiv
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-block"
+        <MotionDiv
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="inline-block"
+        >
+          <button
+            onClick={() => signIn("google")}
+            className="px-6 py-3 bg-white text-blue-900 font-semibold rounded-full shadow-lg transition hover:bg-blue-100"
           >
-            <button
-              onClick={() => signIn("google")}
-              className="px-6 py-3 bg-white text-blue-900 font-semibold rounded-full shadow-lg transition hover:bg-blue-100"
-            >
-              Sign in with Google
-            </button>
-          </MotionDiv>
-        )}
+            Sign in with Google
+          </button>
+        </MotionDiv>
       </MotionDiv>
     </main>
   );
