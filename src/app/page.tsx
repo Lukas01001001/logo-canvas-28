@@ -58,6 +58,15 @@ export default function HomePage() {
         transition={{ duration: 1 }}
         className="text-center z-10 p-6"
       >
+        <Image
+          src="/EBCONT_Logo.svg"
+          alt="Logo"
+          width={160}
+          height={80}
+          className="mx-auto mb-6 bg-white rounded-full p-2 shadow"
+          priority
+        />
+
         <MotionH1
           initial={{ scale: 0.9 }}
           animate={{ scale: 1 }}
@@ -73,10 +82,8 @@ export default function HomePage() {
           transition={{ delay: 0.8, duration: 1 }}
           className="text-lg md:text-xl max-w-xl mx-auto mb-8"
         >
-          Design, manage, and showcase your client logos with ease. Beautiful.
-          Efficient. Custom.
+          Manage and showcase your clients&apos; logos with ease.
         </MotionP>
-
         <MotionDiv
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -84,7 +91,7 @@ export default function HomePage() {
         >
           <button
             onClick={() => signIn("google")}
-            className="px-6 py-3 bg-white text-blue-900 font-semibold rounded-full shadow-lg transition hover:bg-blue-100"
+            className="px-6 py-3 bg-white text-blue-900 font-semibold rounded-full shadow-lg transition hover:bg-blue-100 text-lg"
           >
             Sign in with Google
           </button>
