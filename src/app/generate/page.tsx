@@ -10,12 +10,17 @@
 // When the user clicks "← Back to List", the URL also contains filters and `ids`,
 // allowing the client list to restore checkboxes and filters properly.
 //*******************************************************************************************/
+
+import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 import LogoCanvas from "@/components/LogoCanvas";
 
 import DownloadButton from "@/components/DownloadButton";
 import Link from "next/link";
+
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 //******* There may be a need to give up 'Promise' when the project is hosted on a server.  ********/
 // 🟦 ALTERNATIVE - version according to Next.js documentation:
@@ -34,6 +39,11 @@ type Props = {
 //   const { ids, name, industry } = searchParams;
 //******** ******** ******** ********* ******** ******** *********/
 export default async function GeneratePage({ searchParams }: Props) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    redirect("/");
+  }
+
   const { ids, name, industry } = await searchParams;
 
   if (!ids || !ids.match(/^\d+(,\d+)*$/)) return notFound();
