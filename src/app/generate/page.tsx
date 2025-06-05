@@ -43,6 +43,7 @@ export default async function GeneratePage({ searchParams }: Props) {
   if (!session?.user?.id) {
     redirect("/");
   }
+  const userId = Number(session.user.id);
 
   const { ids, name, industry } = await searchParams;
 
@@ -54,8 +55,9 @@ export default async function GeneratePage({ searchParams }: Props) {
   if (industry) params.set("industry", industry);
 
   const idList = ids.split(",").map((id) => parseInt(id.trim()));
+
   const rawClients = await prisma.client.findMany({
-    where: { id: { in: idList } },
+    where: { id: { in: idList }, userId: userId },
   });
 
   const clients = rawClients.map((client) => ({
