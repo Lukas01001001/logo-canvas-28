@@ -6,19 +6,34 @@ import { prisma } from "@/lib/db";
 import DeleteButton from "@/components/DeleteButton";
 import BackToListButton from "@/components/BackToListButton";
 import { MapPin, Building2 } from "lucide-react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 type Props = {
   params: Promise<{ id: string }>;
 };
 
 export default async function ClientDetailPage({ params }: Props) {
+  // get session
+  const session = await getServerSession(authOptions);
+
   const { id } = await params;
+
+  // Get the client together with the userId!
   const client = await prisma.client.findUnique({
-    where: { id: parseInt(id) },
+    where: { id: Number(id) },
+    //include: { industry: true, user: true },
     include: { industry: true },
   });
 
-  if (!client) return notFound();
+  // If there is no client OR does not belong to a user, 404
+  if (
+    !client ||
+    !session?.user?.id ||
+    client.userId !== Number(session.user.id)
+  ) {
+    return notFound();
+  }
 
   const base64Logo =
     client.logoBlob && client.logoType

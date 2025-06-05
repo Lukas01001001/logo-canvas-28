@@ -6,6 +6,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Spinner from "@/components/ui/Spinner";
 
 // dynamic import framer-motion
 const MotionDiv = dynamic(
@@ -59,9 +60,20 @@ export default function HomePage() {
         </MotionP>
 
         {status === "loading" ? (
-          <div className="text-white py-3">Loading...</div>
+          <Spinner />
         ) : session ? (
           <>
+            <div className="flex items-center justify-center gap-3 mb-2">
+              {session.user.image && (
+                <img
+                  src={session.user.image}
+                  alt="avatar"
+                  className="w-8 h-8 rounded-full"
+                />
+              )}
+              <span className="text-white">{session.user.email}</span>
+            </div>
+
             <MotionDiv
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
