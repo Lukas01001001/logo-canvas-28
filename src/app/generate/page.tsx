@@ -22,6 +22,8 @@ import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 
+import { AddClientsButton } from "@/components/AddClientsButton";
+
 //******* There may be a need to give up 'Promise' when the project is hosted on a server.  ********/
 // 🟦 ALTERNATIVE - version according to Next.js documentation:
 //------------------------------------------------------
@@ -85,9 +87,11 @@ export default async function GeneratePage({ searchParams }: Props) {
         <h1 className="text-2xl sm:text-3xl font-bold text-white text-center flex-1">
           Logo Forest
         </h1>
-
-        {/* Download button */}
-        <DownloadButton />
+        {/*  Action Buttons */}
+        <div className="flex gap-4">
+          <AddClientsButton />
+          <DownloadButton />
+        </div>
       </div>
 
       {/* Canvas with logos */}

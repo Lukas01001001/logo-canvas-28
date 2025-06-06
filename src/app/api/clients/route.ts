@@ -71,6 +71,8 @@ export async function GET(req: Request) {
     clients.map((c) => ({
       ...c,
       industry: c.industry?.name || null,
+      logoBlob: c.logoBlob ? Buffer.from(c.logoBlob).toString("base64") : null,
+      logoType: c.logoType || null,
     }))
   );
 }
