@@ -1,10 +1,10 @@
-// src/app/generate/layout.tsx
+// src/app/industries/layout.tsx
 
 "use client";
 
 import AppNavbar from "@/components/AppNavbar";
 
-export default function GenerateLayout({
+export default function IndustriesLayout({
   children,
 }: {
   children: React.ReactNode;

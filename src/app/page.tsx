@@ -50,6 +50,7 @@ export default function HomePage() {
         alt="Background logos"
         fill
         className="object-cover opacity-10 pointer-events-none"
+        priority
       />
 
       <MotionDiv

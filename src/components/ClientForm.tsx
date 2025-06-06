@@ -108,24 +108,28 @@ export default function ClientForm({
           className="w-full bg-gray-800 text-white border border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
-
+      {/* <><<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>><>*/}
       <div>
         <label className="block text-sm font-medium mb-1 text-gray-300">
-          Industry (choose or type new)
+          Industry (choose)
         </label>
-        <input
-          list="industry-options"
-          autoComplete="off"
+        <select
           value={industryName}
           onChange={(e) => setIndustryName(e.target.value)}
           required
           className="w-full bg-gray-800 text-white border border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <datalist id="industry-options">
+        >
+          <option value="" disabled>
+            {availableIndustries.length === 0
+              ? "No industries. Add one first!"
+              : "Choose industry..."}
+          </option>
           {availableIndustries.map((ind) => (
-            <option key={ind.id} value={ind.name} />
+            <option key={ind.id} value={ind.name}>
+              {ind.name}
+            </option>
           ))}
-        </datalist>
+        </select>
       </div>
 
       <div>

@@ -30,6 +30,14 @@ export default async function ClientsPage() {
               availableIndustries={industries.map((i) => i.name)}
             />
           </div>
+          {/* BUTTON NEW INDUSTRY */}
+          <Link
+            href="/industries"
+            className="bg-blue-900 hover:bg-blue-700 text-white font-semibold text-sm px-5 py-2 rounded-md whitespace-nowrap min-w-[150px] text-center"
+          >
+            Add Industry
+          </Link>
+
           {/* BUTTON NEW CLIENT*/}
           <Link
             href="/clients/new"

@@ -13,9 +13,7 @@ export default function Spinner() {
         {/* <div className="animate-spin rounded-full h-32 w-32 border-t-8 border-[#f7931a] border-opacity-90"></div> */}
         <div className="animate-spin rounded-full h-32 w-32 border-t-8 border-white border-opacity-90"></div>
       </div>
-      <p className="text-white text-lg font-bold opacity-90">
-        Loading clients...
-      </p>
+      <p className="text-white text-lg font-bold opacity-90">Loading...</p>
     </div>
   );
 }

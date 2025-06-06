@@ -12,7 +12,9 @@ export default function ClientsLayout({
   return (
     <>
       <AppNavbar />
-      <main className="pt-16">{children}</main>
+      <main className="pt-10" role="main">
+        {children}
+      </main>
     </>
   );
 }
