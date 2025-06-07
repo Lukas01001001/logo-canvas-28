@@ -28,7 +28,7 @@ type Client = {
   name: string;
   address?: string | null;
   industry?: string | null;
-  logoBlob?: Uint8Array | null;
+  logoBlob?: string | null;
   logoType?: string | null;
 };
 
@@ -36,7 +36,7 @@ const LIMIT = 20;
 
 export default function ClientList() {
   const [error, setError] = useState<string | null>(null);
-  const [countdown, setCountdown] = useState(10); // redirect --> '/'
+  const [countdown, setCountdown] = useState(10); // countdown to redirect --> '/'
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -54,12 +54,14 @@ export default function ClientList() {
   const resetSelection = useClientSelection((s) => s.resetSelection);
   const resetCanvas = useCanvasStore((s) => s.resetCanvas);
 
+  // Resets the selections and canvas
   const handleReset = () => {
     resetSelection(); // cleans up selections
     resetCanvas([]); // clears canvas to empty (no logo = empty layout)
   };
 
   // redirect --> '/'
+  // Automatic redirect if not logged in
   useEffect(() => {
     if (error && error.toLowerCase().includes("logged in")) {
       const interval = setInterval(() => {
@@ -74,6 +76,7 @@ export default function ClientList() {
     }
   }, [error, countdown, router]);
 
+  // We assemble the query string from filters
   const queryString = useMemo(() => {
     const params = new URLSearchParams();
     const name = searchParams.get("name");
@@ -88,31 +91,30 @@ export default function ClientList() {
     setClients([]);
     setPage(0);
     setHasMore(true);
-  }, [searchParams.get("name"), searchParams.get("industry")]);
+  }, [queryString]);
 
-  // Downloading customers
+  // Downloading clients from the API (base64)
+  // Fetch clients, ONLY when the page or queryString changes!
   useEffect(() => {
     const controller = new AbortController();
 
     const fetchClients = async () => {
-      if (loading || (!hasMore && page > 0)) return;
+      if (!hasMore && page > 0) return;
+      setLoading(true);
+      setError(null);
 
+      const params = new URLSearchParams(queryString);
+      params.set("skip", String(page * LIMIT));
+      params.set("limit", String(LIMIT));
       try {
-        setLoading(true);
-        setError(null); // clear error on next fetch!
-        const params = new URLSearchParams(queryString);
-        params.set("skip", String(page * LIMIT));
-        params.set("limit", String(LIMIT));
-
         const res = await fetch(`/api/clients?${params.toString()}`, {
           signal: controller.signal,
         });
 
-        // Try parsing the answer
-        let data: any = null;
+        let data: Client[] | { error: string } = [];
         try {
           data = await res.json();
-        } catch (jsonErr) {
+        } catch {
           setError("Error parsing response from server.");
           setClients([]);
           return;
@@ -120,10 +122,14 @@ export default function ClientList() {
 
         if (!res.ok) {
           // Special handling 401
-          if (res.status === 401) {
+          if ("error" in data && res.status === 401) {
             setError("You must be logged in to view customers.");
           } else {
-            setError(data?.error || "Error downloading clients.");
+            setError(
+              typeof data === "object" && "error" in data
+                ? data.error
+                : "Error downloading clients."
+            );
           }
           setClients([]);
           setHasMore(false);
@@ -146,12 +152,18 @@ export default function ClientList() {
         if (data.length < LIMIT) {
           setHasMore(false);
         }
-      } catch (err: any) {
-        if (err.name !== "AbortError") {
+      } catch (err) {
+        // typing errors
+        if (
+          typeof err === "object" &&
+          err !== null &&
+          "name" in err &&
+          (err as { name: string }).name !== "AbortError"
+        ) {
           setError("Network or API connection error.");
           setClients([]);
           setHasMore(false);
-          console.error("❌ Fetch error:", err);
+          // log error if you want
         }
       } finally {
         setLoading(false);
@@ -180,6 +192,7 @@ export default function ClientList() {
     [loading, hasMore]
   );
 
+  // Move to generate and clear the selection
   const handleGenerate = () => {
     if (selectedClients.length > 0) {
       const query = new URLSearchParams();
@@ -189,6 +202,8 @@ export default function ClientList() {
       const industry = searchParams.get("industry");
       if (name) query.set("name", name);
       if (industry) query.set("industry", industry);
+
+      resetSelection(); // deletes selection - checkboxes status!
 
       router.push(`/generate?${query.toString()}`);
     }

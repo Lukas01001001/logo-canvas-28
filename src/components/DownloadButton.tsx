@@ -45,7 +45,7 @@ export default function DownloadButton() {
   return (
     <button
       onClick={handleDownload}
-      className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all text-base md:text-lg"
+      className="bg-orange-500 h-12 min-w-[140px] hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all text-base md:text-lg"
     >
       Download PNG
     </button>

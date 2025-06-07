@@ -1,4 +1,5 @@
 // src/components/ClientListModal.tsx
+
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -37,6 +38,25 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
     .map((id) => parseInt(id))
     .filter((id) => !isNaN(id));
   const [checked, setChecked] = useState<number[]>(initialChecked);
+
+  const [checkedClientsList, setCheckedClientsList] = useState<Client[]>([]);
+
+  useEffect(() => {
+    if (!checked.length) {
+      setCheckedClientsList([]);
+      return;
+    }
+    fetch(`/api/clients/selected?ids=${checked.join(",")}`)
+      .then((r) => r.json())
+      .then(setCheckedClientsList);
+  }, [checked]);
+
+  const MAX_BADGE = 10;
+  const checkedClients = checkedClientsList.filter((c) =>
+    checked.includes(c.id)
+  );
+  const extraCount = checkedClients.length - MAX_BADGE;
+  const visibleClients = checkedClients.slice(0, MAX_BADGE);
 
   // Synchronize selection with URL
   useEffect(() => {
@@ -93,60 +113,105 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
     setIndustry("all");
   };
 
-  // Helper - returns customer name by id (to badge Selected)
-  const selectedClients = clients.filter((c) => checked.includes(c.id));
+  const handleSelectAll = () => {
+    setChecked((prev) => {
+      const visibleIds = clients.map((c) => c.id);
+      // Adds only those who are not yet marked
+      return Array.from(new Set([...prev, ...visibleIds]));
+    });
+  };
+
+  const handleResetSelection = () => setChecked([]);
 
   return (
     <div className="flex flex-col h-[60vh]">
-      {/* Filters */}
-      <div className="flex flex-col gap-3 mb-4 flex-shrink-0">
-        <Input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Search by name"
-          className="bg-[#171b22] border-border text-base"
-        />
-        <Select value={industry} onValueChange={setIndustry}>
-          <SelectTrigger className="bg-[#171b22] border-border text-base">
-            <SelectValue placeholder="All industries" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All industries</SelectItem>
-            {industries.map((i) => (
-              <SelectItem value={i} key={i}>
-                {i}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      {/* Filters row */}
+      <div className="flex flex-col gap-2 mb-2">
+        {/* Search, Industry, Clear filters */}
+        <div className="flex flex-col md:flex-row gap-2 items-center">
+          <Input
+            type="search"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Search by name"
+            className="bg-[#171b22] border-border text-base md:max-w-xs"
+          />
+          <Select value={industry} onValueChange={setIndustry}>
+            <SelectTrigger className="bg-[#171b22] border-border text-base w-full md:max-w-xs">
+              <SelectValue placeholder="All industries" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All industries</SelectItem>
+              {industries.map((i) => (
+                <SelectItem value={i} key={i}>
+                  {i}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {/* Push Clear filters to the right */}
+          <div className="flex-1 flex justify-end w-full mt-2 md:mt-0">
+            <Button
+              type="button"
+              onClick={clearFilters}
+              variant="outline"
+              size="sm"
+              className="text-xs border border-gray-600"
+            >
+              Clear filters
+            </Button>
+          </div>
+        </div>
+        {/* Select/Reset row */}
         <div className="flex gap-2 items-center">
           <Button
             type="button"
-            onClick={clearFilters}
+            onClick={handleSelectAll}
             variant="outline"
             size="sm"
             className="text-xs border border-gray-600"
           >
-            Clear filters
+            Select all
           </Button>
-          <span className="ml-auto text-xs text-gray-400">
+          <Button
+            type="button"
+            onClick={handleResetSelection}
+            variant="outline"
+            size="sm"
+            className="text-xs border border-gray-600"
+          >
+            Reset selection
+          </Button>
+          <span
+            className="ml-auto text-xs text-gray-400"
+            aria-live="polite"
+            aria-atomic="true"
+            aria-label={`Selected clients: ${checked.length}`}
+          >
             Selected {checked.length}
           </span>
         </div>
-        {/* Badge with selected */}
-        {selectedClients.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-1">
-            {selectedClients.map((c) => (
+        {/* Badge row */}
+        {checkedClients.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {visibleClients.map((c) => (
               <span
                 key={c.id}
                 className="bg-blue-600 text-white text-xs px-2 py-0.5 rounded font-medium"
+                aria-label={`Selected client: ${c.name}`}
               >
                 {c.name}
               </span>
             ))}
+            {extraCount > 0 && (
+              <span className="bg-blue-700 text-white text-xs px-2 py-0.5 rounded font-medium">
+                +{extraCount} more
+              </span>
+            )}
           </div>
         )}
       </div>
+
       {/* List of clients */}
       <div className="flex-1 min-h-0">
         <ScrollArea className="h-full max-h-full">
@@ -229,10 +294,14 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
       </div>
       {/* Footer */}
       <div className="flex justify-end gap-2 mt-4 pt-2 flex-shrink-0 border-t border-border bg-background">
-        <Button variant="ghost" onClick={onClose}>
+        <Button variant="outline" onClick={onClose}>
           Cancel
         </Button>
-        <Button onClick={handleConfirm} disabled={checked.length === 0}>
+        <Button
+          variant="outline"
+          onClick={handleConfirm}
+          disabled={checked.length === 0}
+        >
           Confirm
         </Button>
       </div>

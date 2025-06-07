@@ -1,23 +1,11 @@
 // src/app/generate/page.tsx
 
-//*******************************************************************************************/
-// This page does NOT use Zustand for client selection.
-// Instead, it reads selected client IDs directly from the URL (searchParams.ids).
-// Why?
-// ✅ This is a server component (async function), so we cannot use client-side Zustand here.
-// ✅ The `ids` are passed explicitly via URL when navigating from /clients to /generate.
-// ✅ This ensures full compatibility with server rendering and direct links/bookmarks.
-// When the user clicks "← Back to List", the URL also contains filters and `ids`,
-// allowing the client list to restore checkboxes and filters properly.
-//*******************************************************************************************/
-
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 import LogoCanvas from "@/components/LogoCanvas";
 
 import DownloadButton from "@/components/DownloadButton";
-import Link from "next/link";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
@@ -75,20 +63,12 @@ export default async function GeneratePage({ searchParams }: Props) {
     <div className="p-8">
       {/* Top navigation with title and buttons */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-        {/* Back button */}
-        <Link
-          href={`/clients?${params.toString()}`}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded shadow text-center"
-        >
-          ← Back to List
-        </Link>
-
-        {/* Title in the middle */}
+        {/* Logo/title center */}
         <h1 className="text-2xl sm:text-3xl font-bold text-white text-center flex-1">
           Logo Forest
         </h1>
-        {/*  Action Buttons */}
-        <div className="flex gap-4">
+        {/* Buttons right */}
+        <div className="flex gap-4 items-center justify-end">
           <AddClientsButton />
           <DownloadButton />
         </div>
