@@ -126,23 +126,95 @@ export default function LogoCanvas({ clients }: Props) {
     const missingIds = clientIds.filter((id) => !currentLayoutIds.includes(id));
     const extraIds = currentLayoutIds.filter((id) => !clientIds.includes(id));
 
+    //<<<<<<<<<<<<<<<<<< CANVAS RANDOM >>>>>>>>>>>>>>>>>>>>>>>
+    function getRandomInt(min: number, max: number) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    // Function checks collision of rectangles with small margin
+    function hasCollision(
+      newBox: PositionAndSize,
+      boxes: PositionAndSize[],
+      margin = 8
+    ) {
+      return boxes.some((box) => {
+        return (
+          newBox.x < box.x + box.width + margin &&
+          newBox.x + newBox.width + margin > box.x &&
+          newBox.y < box.y + box.height + margin &&
+          newBox.y + newBox.height + margin > box.y
+        );
+      });
+    }
     if (missingIds.length > 0 || extraIds.length > 0) {
-      // Add missing and remove extra
       const newLayout: Record<number, PositionAndSize> = {};
-      let baseIdx = 0;
+      const margin = 2; // BUFFER from the edge
+      // First, add the already existing
       clientIds.forEach((id) => {
         if (layout.hasOwnProperty(id)) {
           newLayout[id] = layout[id];
-        } else {
-          newLayout[id] = {
-            x: 30 + (currentLayoutIds.length + baseIdx) * 10,
-            y: 30,
-            width: 100,
-            height: 100,
-          };
-          baseIdx++;
         }
       });
+
+      // Randomly place the missing ones, avoiding collisions and edges!
+      missingIds.forEach((id) => {
+        const logoWidth = 100;
+        const logoHeight = 100;
+        const maxX = Math.max(margin, canvasWidth - logoWidth);
+        const maxY = Math.max(margin, canvasHeight - logoHeight);
+
+        let tries = 0;
+        let pos: PositionAndSize;
+        const boxes = Object.values(newLayout);
+
+        // We are looking for positions without collisions (max 100 attempts, so as not to loop)
+        do {
+          pos = {
+            x: getRandomInt(margin, maxX),
+            y: getRandomInt(margin, maxY),
+            width: logoWidth,
+            height: logoHeight,
+          };
+          tries++;
+        } while (hasCollision(pos, boxes) && tries < 100);
+
+        newLayout[id] = pos;
+      });
+      // if (missingIds.length > 0 || extraIds.length > 0) {
+      //   const newLayout: Record<number, PositionAndSize> = {};
+      //   clientIds.forEach((id) => {
+      //     if (layout.hasOwnProperty(id)) {
+      //       newLayout[id] = layout[id];
+      //     } else {
+      //       // Losowe położenie w obrębie canvasu (dynamiczny rozmiar)
+      //       const logoWidth = 100;
+      //       const logoHeight = 100;
+      //       const maxX = Math.max(0, canvasWidth - logoWidth);
+      //       const maxY = Math.max(0, canvasHeight - logoHeight);
+      //       newLayout[id] = {
+      //         x: getRandomInt(0, maxX),
+      //         y: getRandomInt(0, maxY),
+      //         width: logoWidth,
+      //         height: logoHeight,
+      //       };
+      //     }
+      //   });
+      // if (missingIds.length > 0 || extraIds.length > 0) {
+      //   // Add missing and remove extra
+      //   const newLayout: Record<number, PositionAndSize> = {};
+      //   let baseIdx = 0;
+      //   clientIds.forEach((id) => {
+      //     if (layout.hasOwnProperty(id)) {
+      //       newLayout[id] = layout[id];
+      //     } else {
+      //       newLayout[id] = {
+      //         x: 30 + (currentLayoutIds.length + baseIdx) * 80,
+      //         y: 30,
+      //         width: 100,
+      //         height: 100,
+      //       };
+      //       baseIdx++;
+      //     }
+      //   });
 
       const newLogoBackgrounds: Record<number, "black" | "white"> = {};
       clientIds.forEach((id) => {
