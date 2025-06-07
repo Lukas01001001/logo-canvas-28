@@ -60,6 +60,25 @@ export default function ClientList() {
     resetCanvas([]); // clears canvas to empty (no logo = empty layout)
   };
 
+  // ... (poza hookami)
+
+  const allVisibleSelected =
+    clients.length > 0 && clients.every((c) => selectedClients.includes(c.id));
+  const handleSelectAllVisible = () => {
+    const visibleIds = clients.map((c) => c.id);
+    if (allVisibleSelected) {
+      // Odznacz wszystkich widocznych
+      visibleIds.forEach((id) => {
+        if (selectedClients.includes(id)) toggleClient(id);
+      });
+    } else {
+      // Zaznacz wszystkich widocznych
+      visibleIds.forEach((id) => {
+        if (!selectedClients.includes(id)) toggleClient(id);
+      });
+    }
+  };
+
   // redirect --> '/'
   // Automatic redirect if not logged in
   useEffect(() => {
@@ -247,6 +266,8 @@ export default function ClientList() {
               onToggleLayout={() =>
                 setLayout((prev) => (prev === "grid" ? "list" : "grid"))
               }
+              onSelectAll={handleSelectAllVisible}
+              allSelected={allVisibleSelected}
             />
 
             <div

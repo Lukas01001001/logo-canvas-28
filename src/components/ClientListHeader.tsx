@@ -10,6 +10,8 @@ type Props = {
   onGenerate: () => void;
   layout: "grid" | "list";
   onToggleLayout: () => void;
+  onSelectAll: () => void;
+  allSelected: boolean;
 };
 
 export default function ClientListHeader({
@@ -18,6 +20,8 @@ export default function ClientListHeader({
   onGenerate,
   layout,
   onToggleLayout,
+  onSelectAll,
+  allSelected,
 }: Props) {
   return (
     <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
@@ -39,6 +43,12 @@ export default function ClientListHeader({
               Grid View
             </>
           )}
+        </button>
+        <button
+          onClick={onSelectAll}
+          className="w-full sm:w-auto bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-md"
+        >
+          {allSelected ? "Deselect All" : "Select All"}
         </button>
 
         {selectedCount > 0 && (
