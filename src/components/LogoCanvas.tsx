@@ -179,42 +179,6 @@ export default function LogoCanvas({ clients }: Props) {
 
         newLayout[id] = pos;
       });
-      // if (missingIds.length > 0 || extraIds.length > 0) {
-      //   const newLayout: Record<number, PositionAndSize> = {};
-      //   clientIds.forEach((id) => {
-      //     if (layout.hasOwnProperty(id)) {
-      //       newLayout[id] = layout[id];
-      //     } else {
-      //       // Losowe położenie w obrębie canvasu (dynamiczny rozmiar)
-      //       const logoWidth = 100;
-      //       const logoHeight = 100;
-      //       const maxX = Math.max(0, canvasWidth - logoWidth);
-      //       const maxY = Math.max(0, canvasHeight - logoHeight);
-      //       newLayout[id] = {
-      //         x: getRandomInt(0, maxX),
-      //         y: getRandomInt(0, maxY),
-      //         width: logoWidth,
-      //         height: logoHeight,
-      //       };
-      //     }
-      //   });
-      // if (missingIds.length > 0 || extraIds.length > 0) {
-      //   // Add missing and remove extra
-      //   const newLayout: Record<number, PositionAndSize> = {};
-      //   let baseIdx = 0;
-      //   clientIds.forEach((id) => {
-      //     if (layout.hasOwnProperty(id)) {
-      //       newLayout[id] = layout[id];
-      //     } else {
-      //       newLayout[id] = {
-      //         x: 30 + (currentLayoutIds.length + baseIdx) * 80,
-      //         y: 30,
-      //         width: 100,
-      //         height: 100,
-      //       };
-      //       baseIdx++;
-      //     }
-      //   });
 
       const newLogoBackgrounds: Record<number, "black" | "white"> = {};
       clientIds.forEach((id) => {
