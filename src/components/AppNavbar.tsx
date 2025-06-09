@@ -6,12 +6,17 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useCanvasStore } from "@/store/useCanvasStore";
 
 export default function AppNavbar() {
   const { data: session } = useSession();
 
   const router = useRouter();
   if (!session) return null;
+
+  const handleLogoClick = () => {
+    useCanvasStore.getState().resetCanvas([]);
+  };
 
   const handleSignOut = async () => {
     await signOut({ redirect: false });
@@ -24,6 +29,7 @@ export default function AppNavbar() {
       {/* L */}
       <Link
         href="/clients"
+        onClick={handleLogoClick}
         className="flex items-center gap-2 hover:bg-gray-700"
       >
         <div className="relative w-30 h-10">

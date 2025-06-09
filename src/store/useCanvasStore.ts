@@ -49,6 +49,7 @@ export const useCanvasStore = create<CanvasStore>()(
             layout,
             selectedIds: [],
             userSetCanvasSize: false, // resets to auto
+            canvasBg: "black",
           };
         }),
     }),

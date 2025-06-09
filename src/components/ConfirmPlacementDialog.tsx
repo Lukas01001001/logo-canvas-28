@@ -27,10 +27,8 @@ export function ConfirmPlacementDialog({ open, onSelect, onCancel }: Props) {
             Logo placement
           </DialogTitle>
 
-          <DialogDescription>
-            <div className="text-white">
-              How do you want to arrange logos on the canvas?
-            </div>
+          <DialogDescription className="text-white">
+            How do you want to arrange logos on the canvas?
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-3 py-3">

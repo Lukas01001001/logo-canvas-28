@@ -60,19 +60,17 @@ export default function ClientList() {
     resetCanvas([]); // clears canvas to empty (no logo = empty layout)
   };
 
-  // ... (poza hookami)
-
   const allVisibleSelected =
     clients.length > 0 && clients.every((c) => selectedClients.includes(c.id));
   const handleSelectAllVisible = () => {
     const visibleIds = clients.map((c) => c.id);
     if (allVisibleSelected) {
-      // Odznacz wszystkich widocznych
+      // Deselect all visible
       visibleIds.forEach((id) => {
         if (selectedClients.includes(id)) toggleClient(id);
       });
     } else {
-      // Zaznacz wszystkich widocznych
+      // Select all visible
       visibleIds.forEach((id) => {
         if (!selectedClients.includes(id)) toggleClient(id);
       });
@@ -229,7 +227,13 @@ export default function ClientList() {
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={
+        <div className="flex justify-center my-6">
+          <Spinner />
+        </div>
+      }
+    >
       <div>
         {error ? (
           <div className="flex flex-col items-center text-yellow-500 text-center py-10 font-semibold gap-4">
