@@ -3,16 +3,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+
+// hook and helper to deploy random logo on canvas
+import { useCanvasStore } from "@/store/useCanvasStore";
+import { useConfirmPlacementDialog } from "@/hooks/useConfirmPlacement";
+import { generateRandomLayout } from "@/utils/randomLogoPlacement";
 
 //
 type Client = {
@@ -41,6 +38,13 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
 
   const [checkedClientsList, setCheckedClientsList] = useState<Client[]>([]);
 
+  // Get Zustand canvas store state and methods
+  const { selectedIds, setCanvas, canvasWidth, canvasHeight } =
+    useCanvasStore();
+  // Dialog hook for placement confirmation
+  const [showPlacementDialog, placementDialog] = useConfirmPlacementDialog();
+
+  // fetching clients
   useEffect(() => {
     if (!checked.length) {
       setCheckedClientsList([]);
@@ -100,13 +104,47 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
 
   const router = useRouter();
 
-  const handleConfirm = () => {
+  // >>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<
+  // Main confirm handler: ask user about layout when clients changed
+  const handleConfirm = async () => {
+    const oldIds = selectedIds ?? [];
+    const newIds = checked;
+
+    // Detect if the list of selected clients has changed
+    const idsChanged =
+      oldIds.length !== newIds.length ||
+      oldIds.some((id) => !newIds.includes(id)) ||
+      newIds.some((id) => !oldIds.includes(id));
+
+    let layoutOption: "keep" | "random" = "keep";
+    // If there are changes, show the placement dialog and wait for user choice
+    if (idsChanged) {
+      const choice = await showPlacementDialog(); // "keep", "random", or "cancel"
+      if (choice === "cancel") return; // User cancelled
+      layoutOption = choice;
+    }
+
+    // If user wants randomize, generate new layout and update Zustand
+    if (layoutOption === "random") {
+      setCanvas({
+        layout: generateRandomLayout(newIds, canvasWidth, canvasHeight),
+        selectedIds: newIds,
+      });
+    } else {
+      // Otherwise, just update the selection in Zustand
+      setCanvas({
+        selectedIds: newIds,
+      });
+    }
+
+    // Redirect to /generate with updated ids in URL
     const idsString = checked.join(",");
     const params = new URLSearchParams(searchParams.toString());
     params.set("ids", idsString);
     router.push(`/generate?${params.toString()}`);
     onClose();
   };
+  // >>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<
 
   const clearFilters = () => {
     setName("");
@@ -128,37 +166,37 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
       {/* Filters row */}
       <div className="flex flex-col gap-2 mb-2">
         {/* Search, Industry, Clear filters */}
-        <div className="flex flex-col md:flex-row gap-2 items-center">
-          <Input
+        <div className="flex flex-col md:flex-row gap-4 w-full">
+          <input
             type="search"
+            placeholder="Search by name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Search by name"
-            className="bg-[#171b22] border-border text-base md:max-w-xs"
+            className="w-full md:w-1/2 border border-gray-600 bg-gray-800 text-white placeholder-gray-400 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <Select value={industry} onValueChange={setIndustry}>
-            <SelectTrigger className="bg-[#171b22] border-border text-base w-full md:max-w-xs">
-              <SelectValue placeholder="All industries" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All industries</SelectItem>
-              {industries.map((i) => (
-                <SelectItem value={i} key={i}>
-                  {i}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+
+          <select
+            value={industry}
+            onChange={(e) => setIndustry(e.target.value)}
+            className="w-full md:w-1/4 border border-gray-600 bg-gray-800 text-white placeholder-gray-400 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="all">All industries</option>
+            {industries.map((ind) => (
+              <option key={ind} value={ind} className="bg-gray-800 text-white">
+                {ind}
+              </option>
+            ))}
+          </select>
           {/* Push Clear filters to the right */}
           <div className="flex-1 flex justify-end w-full mt-2 md:mt-0">
             <Button
               type="button"
               onClick={clearFilters}
               variant="outline"
-              size="sm"
-              className="text-xs border border-gray-600"
+              size="lg"
+              className="border border-yellow-500 text-yellow-500 font-semibold bg-transparent px-4 py-2 rounded text-base transition hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-yellow-500"
             >
-              Clear filters
+              Clear Filters
             </Button>
           </div>
         </div>
@@ -168,27 +206,27 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
             type="button"
             onClick={handleSelectAll}
             variant="outline"
-            size="sm"
-            className="text-xs border border-gray-600"
+            size="lg"
+            className="border border-white-500 text-white-500 font-semibold bg-transparent px-4 py-2 rounded text-base transition hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            Select all
+            Select All
           </Button>
           <Button
             type="button"
             onClick={handleResetSelection}
             variant="outline"
-            size="sm"
-            className="text-xs border border-gray-600"
+            size="lg"
+            className="border border-white-500 text-white-500 font-semibold bg-transparent px-4 py-2 rounded text-base transition hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            Reset selection
+            Reset Selection
           </Button>
           <span
-            className="ml-auto text-xs text-gray-400"
+            className="ml-auto text-lg text-blue-400"
             aria-live="polite"
             aria-atomic="true"
             aria-label={`Selected clients: ${checked.length}`}
           >
-            Selected {checked.length}
+            Selected: <span className="font-bold">{checked.length}</span>
           </span>
         </div>
         {/* Badge row */}
@@ -226,7 +264,7 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
               {clients.map((client) => (
                 <li
                   key={client.id}
-                  className={`flex items-center gap-4 p-3 rounded-xl bg-[#202432] border transition-all duration-150
+                  className={`flex items-center gap-4 p-3 rounded bg-[#202432] border transition-all duration-150
         ${
           checked.includes(client.id)
             ? "border-blue-500 ring-2 ring-blue-800 shadow"
@@ -294,17 +332,27 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
       </div>
       {/* Footer */}
       <div className="flex justify-end gap-2 mt-4 pt-2 flex-shrink-0 border-t border-border bg-background">
-        <Button variant="outline" onClick={onClose}>
+        <Button
+          variant="outline"
+          onClick={onClose}
+          size="lg"
+          className="border border-white-500 text-white-500 font-semibold bg-transparent px-4 py-2 rounded text-base transition hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
           Cancel
         </Button>
         <Button
           variant="outline"
           onClick={handleConfirm}
           disabled={checked.length === 0}
+          size="lg"
+          className="border-2 border-blue-500 text-white-500 font-semibold bg-transparent px-4 py-2 rounded text-base transition hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Confirm
         </Button>
       </div>
+
+      {/* // {placementDialog} is the modal component, always rendered in the tree */}
+      {placementDialog}
     </div>
   );
 }
