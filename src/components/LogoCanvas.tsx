@@ -330,9 +330,14 @@ export default function LogoCanvas({ clients }: Props) {
       {/* CANVAS */}
       <div
         ref={canvasRef}
-        className={`relative border border-yellow-600 rounded overflow-x-auto ${
-          canvasBg === "black" ? "bg-black" : "bg-white"
-        }`}
+        className={`
+          relative 
+          border-2 border-dashed border-[#64baaa]
+        hover:border-[#64baaa]
+          hover:border-2
+          rounded overflow-x-auto
+          ${canvasBg === "black" ? "bg-black" : "bg-white"}
+        `}
         style={
           userSetCanvasSize
             ? { width: canvasWidth, height: canvasHeight }
@@ -389,11 +394,18 @@ export default function LogoCanvas({ clients }: Props) {
                     <img
                       src={base64}
                       alt={client.name}
-                      className={`w-full h-full object-contain border-2 border-white rounded ${
-                        (logoBackgrounds[client.id] ?? "white") === "white"
-                          ? "bg-white"
-                          : "bg-black"
-                      }`}
+                      className={`
+                        w-full h-full object-contain 
+                        border-2 border-dashed border-[#64baaa]
+                      hover:border-[#64baaa]
+                        hover:border-4
+                        rounded
+                        ${
+                          (logoBackgrounds[client.id] ?? "white") === "white"
+                            ? "bg-white"
+                            : "bg-black"
+                        }
+                      `}
                     />
                   </>
                 ) : (
