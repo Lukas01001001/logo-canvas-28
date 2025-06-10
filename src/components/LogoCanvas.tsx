@@ -113,8 +113,8 @@ export default function LogoCanvas({ clients }: Props) {
 
   // Reset support (resets layout, logo backgrounds and returns to auto-size)
   const handleReset = () => {
-    //setCanvas({ userSetCanvasSize: false });
-    setCanvas({ userSetCanvasSize: false, canvasBg: "black" }); // <-- reset canvasBg: "black"
+    setCanvas({ userSetCanvasSize: false });
+    //setCanvas({ userSetCanvasSize: false, canvasBg: "black" }); // <-- reset canvasBg: "black"
     resetCanvas(clients.map((c) => c.id));
   };
 
@@ -185,7 +185,7 @@ export default function LogoCanvas({ clients }: Props) {
         if (id in logoBackgrounds) {
           newLogoBackgrounds[id] = logoBackgrounds[id];
         } else {
-          newLogoBackgrounds[id] = "black";
+          newLogoBackgrounds[id] = "white";
         }
       });
 
@@ -390,7 +390,7 @@ export default function LogoCanvas({ clients }: Props) {
                       src={base64}
                       alt={client.name}
                       className={`w-full h-full object-contain border-2 border-white rounded ${
-                        logoBackgrounds[client.id] === "white"
+                        (logoBackgrounds[client.id] ?? "white") === "white"
                           ? "bg-white"
                           : "bg-black"
                       }`}

@@ -29,7 +29,7 @@ export const useCanvasStore = create<CanvasStore>()(
     (set) => ({
       canvasWidth: 1200,
       canvasHeight: 600,
-      canvasBg: "black",
+      canvasBg: "white",
       logoBackgrounds: {},
       layout: {},
       selectedIds: [],
@@ -41,7 +41,7 @@ export const useCanvasStore = create<CanvasStore>()(
           const logoBackgrounds: Record<number, "black" | "white"> = {};
           clientIds.forEach((id, idx) => {
             layout[id] = { x: 30 + idx * 10, y: 30, width: 100, height: 100 };
-            logoBackgrounds[id] = "black";
+            logoBackgrounds[id] = "white";
           });
           return {
             ...state,
@@ -49,7 +49,7 @@ export const useCanvasStore = create<CanvasStore>()(
             layout,
             selectedIds: [],
             userSetCanvasSize: false, // resets to auto
-            canvasBg: "black",
+            canvasBg: "white",
           };
         }),
     }),

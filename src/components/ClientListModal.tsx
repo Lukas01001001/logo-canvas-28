@@ -126,9 +126,16 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
 
     // If user wants randomize, generate new layout and update Zustand
     if (layoutOption === "random") {
+      // ustawiamy dla wszystkich logo kolor tła na "white"!
+      const logoBackgrounds: Record<number, "black" | "white"> = {};
+      newIds.forEach((id) => {
+        logoBackgrounds[id] = "white";
+      });
+      //
       setCanvas({
         layout: generateRandomLayout(newIds, canvasWidth, canvasHeight),
         selectedIds: newIds,
+        logoBackgrounds,
       });
     } else {
       // Otherwise, just update the selection in Zustand
