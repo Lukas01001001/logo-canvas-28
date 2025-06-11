@@ -10,6 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useCanvasStore } from "@/store/useCanvasStore";
 import { useConfirmPlacementDialog } from "@/hooks/useConfirmPlacement";
 import { generateRandomLayout } from "@/utils/randomLogoPlacement";
+import { generateClusteredLayout } from "@/utils/clusteredRandomLogoPlacement";
 
 //
 type Client = {
@@ -132,8 +133,15 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
         logoBackgrounds[id] = "white";
       });
       //
+      const selectedClients = checkedClientsList.filter((c) =>
+        checked.includes(c.id)
+      );
       setCanvas({
-        layout: generateRandomLayout(newIds, canvasWidth, canvasHeight),
+        layout: generateClusteredLayout(
+          selectedClients,
+          canvasWidth,
+          canvasHeight
+        ),
         selectedIds: newIds,
         logoBackgrounds,
       });

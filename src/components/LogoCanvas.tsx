@@ -10,6 +10,7 @@ import { useCanvasStore } from "@/store/useCanvasStore";
 type Client = {
   id: number;
   name: string;
+  industry?: string | null;
   logoBlob: string | null;
   logoType: string | null;
 };
