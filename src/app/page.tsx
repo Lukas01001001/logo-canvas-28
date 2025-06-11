@@ -59,14 +59,31 @@ export default function HomePage() {
         transition={{ duration: 1 }}
         className="text-center z-10 p-6"
       >
-        <Image
-          src="/EBCONT_Logo.svg"
-          alt="Logo"
-          width={160}
-          height={80}
-          className="mx-auto mb-6 bg-white rounded-full p-2 shadow"
-          priority
-        />
+        <div className="relative w-40 h-40 mx-auto mb-6 flex items-center justify-center">
+          {/* SVG */}
+          <svg
+            viewBox="0 0 100 100"
+            className="absolute inset-0 w-full h-full z-0"
+          >
+            <polygon
+              points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5"
+              fill="white"
+              stroke="#64baaa"
+              strokeWidth="3"
+              // style={{ filter: "drop-shadow(0 4px 24px #0004)" }}
+            />
+          </svg>
+          {/* Logo */}
+          <Image
+            src="/EBCONT_Logo.svg"
+            alt="Logo"
+            width={120}
+            height={60}
+            style={{ width: "80%", height: "auto" }}
+            className="relative z-10 object-contain"
+            priority
+          />
+        </div>
 
         <MotionH1
           initial={{ scale: 0.9 }}

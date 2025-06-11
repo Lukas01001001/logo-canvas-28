@@ -332,8 +332,8 @@ export default function LogoCanvas({ clients }: Props) {
         ref={canvasRef}
         className={`
           relative 
-          border-2 border-dashed border-[#64baaa]
-        hover:border-[#64baaa]
+          border-2 border-dashed border-ebcont-turquoise
+        hover:border-ebcont-turquoise
           hover:border-2
           rounded overflow-x-auto
           ${canvasBg === "black" ? "bg-black" : "bg-white"}
@@ -389,15 +389,15 @@ export default function LogoCanvas({ clients }: Props) {
                       checked={selectedIds.includes(client.id)}
                       onChange={() => handleCheckbox(client.id)}
                       onPointerDown={() => disableDragTemporarily(client.id)}
-                      className="absolute top-1 left-1 w-8 h-8 z-10 accent-blue-500 cursor-pointer"
+                      className="absolute top-1 left-1 w-8 h-8 z-10 accent-ebcont-turquoise cursor-pointer"
                     />
                     <img
                       src={base64}
                       alt={client.name}
                       className={`
                         w-full h-full object-contain 
-                        border-2 border-dashed border-[#64baaa]
-                      hover:border-[#64baaa]
+                        border-2 border-dashed border-ebcont-turquoise
+                      hover:border-ebcont-turquoise
                         hover:border-4
                         rounded
                         ${
