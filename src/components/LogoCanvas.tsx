@@ -5,16 +5,23 @@
 import { useEffect, useState, useRef } from "react";
 import { Rnd } from "react-rnd";
 import { useCanvasStore } from "@/store/useCanvasStore";
+import { generateClusteredLayout } from "@/utils/clusteredRandomLogoPlacement";
+import Spinner from "./ui/Spinner";
 
 // Types transferred from props
 type Client = {
   id: number;
   name: string;
+  industryId: number | null | undefined;
   industry?: string | null;
   logoBlob: string | null;
   logoType: string | null;
 };
+
+type Industry = { id: number; name: string };
+
 type Props = { clients: Client[] };
+
 type PositionAndSize = { x: number; y: number; width: number; height: number };
 
 const MIN_SIZE = 240;
@@ -112,15 +119,114 @@ export default function LogoCanvas({ clients }: Props) {
     }
   };
 
-  // Reset support (resets layout, logo backgrounds and returns to auto-size)
+  // reset support (resets layout, logo backgrounds and returns to auto-size)
   const handleReset = () => {
     setCanvas({ userSetCanvasSize: false });
     //setCanvas({ userSetCanvasSize: false, canvasBg: "black" }); // <-- reset canvasBg: "black"
     resetCanvas(clients.map((c) => c.id));
   };
 
+  const [industryMap, setIndustryMap] = useState<Record<number, string>>({});
+  const clientsWithIndustry = clients.map((client) => ({
+    ...client,
+    industry: client.industryId
+      ? industryMap[client.industryId] || "other"
+      : "other",
+  }));
+
+  useEffect(() => {
+    fetch("/api/industries")
+      .then((r) => r.json())
+      .then((industries: Industry[]) => {
+        const map: Record<number, string> = {};
+        industries.forEach((ind) => {
+          map[ind.id] = ind.name;
+        });
+        setIndustryMap(map);
+      });
+  }, []);
+
+  // >>>>>>>> group placements at first reneder <<<<<<<<<
+  useEffect(() => {
+    // If layout empty (no layout) - set by industry
+    if (
+      Object.keys(layout).length === 0 &&
+      Object.keys(industryMap).length > 0 &&
+      clients.length > 0
+    ) {
+      setCanvas({
+        layout: generateClusteredLayout(
+          clientsWithIndustry,
+          canvasWidth,
+          canvasHeight
+        ),
+        logoBackgrounds: Object.fromEntries(
+          clients.map((c) => [c.id, "white"])
+        ),
+        selectedIds: clients.map((c) => c.id),
+      });
+    }
+    // eslint-disable-next-line
+  }, [industryMap, clients.length]);
+
+  // random-mix logo button on canvas
+  const handleMixLayout = () => {
+    const margin = 2;
+    const logoWidth = 100;
+    const logoHeight = 100;
+    const clientIds = clients.map((c) => c.id);
+    const newLayout: Record<number, PositionAndSize> = {};
+
+    function getRandomInt(min: number, max: number) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    function hasCollision(
+      newBox: PositionAndSize,
+      boxes: PositionAndSize[],
+      margin = 8
+    ) {
+      return boxes.some((box) => {
+        return (
+          newBox.x < box.x + box.width + margin &&
+          newBox.x + newBox.width + margin > box.x &&
+          newBox.y < box.y + box.height + margin &&
+          newBox.y + newBox.height + margin > box.y
+        );
+      });
+    }
+
+    clientIds.forEach((id) => {
+      let tries = 0;
+      let pos: PositionAndSize;
+      const boxes = Object.values(newLayout);
+
+      const maxX = Math.max(margin, canvasWidth - logoWidth);
+      const maxY = Math.max(margin, canvasHeight - logoHeight);
+
+      do {
+        pos = {
+          x: getRandomInt(margin, maxX),
+          y: getRandomInt(margin, maxY),
+          width: logoWidth,
+          height: logoHeight,
+        };
+        tries++;
+      } while (hasCollision(pos, boxes) && tries < 100);
+
+      newLayout[id] = pos;
+    });
+
+    setCanvas({
+      layout: newLayout,
+      logoBackgrounds: Object.fromEntries(clients.map((c) => [c.id, "white"])),
+      selectedIds: clientIds,
+    });
+  };
+
+  //<<<<<<<<<<<<<<<<<< CANVAS SYNCHRONIZATION !!!!!!!! >>>>>>>>>>>>>>>>>>>>>>>
   // Layout support - logo synchronization on canvas (when changing clients)
   useEffect(() => {
+    if (Object.keys(industryMap).length === 0) return; // DODAJ TO!
     const clientIds = clients.map((c) => c.id);
     const currentLayoutIds = Object.keys(layout).map(Number);
 
@@ -199,7 +305,7 @@ export default function LogoCanvas({ clients }: Props) {
       });
     }
     // eslint-disable-next-line
-  }, [JSON.stringify(clients.map((c) => c.id))]);
+  }, [JSON.stringify(clients.map((c) => c.id)), canvasWidth, canvasHeight]);
 
   // Drag/resize handling of logos
   const updateClientLayout = (
@@ -246,6 +352,28 @@ export default function LogoCanvas({ clients }: Props) {
     }
   };
 
+  // button to place logos in groups
+  const handleClusteredLayout = () => {
+    const logoBackgrounds: Record<number, "black" | "white"> = {};
+    clients.forEach((c) => {
+      logoBackgrounds[c.id] = "white";
+    });
+    setCanvas({
+      layout: generateClusteredLayout(
+        clientsWithIndustry,
+        canvasWidth,
+        canvasHeight
+      ),
+      logoBackgrounds,
+      selectedIds: clients.map((c) => c.id),
+    });
+  };
+
+  // Show a loading spinner while industry map (industries list) is being fetched.
+  // This prevents rendering the canvas until all industry data is available.
+  if (Object.keys(industryMap).length === 0) {
+    return <Spinner />;
+  }
   // === UI ===
   return (
     <div className="mb-8">
@@ -318,6 +446,22 @@ export default function LogoCanvas({ clients }: Props) {
             className="w-full lg:w-auto bg-gray-600 hover:bg-gray-500 text-white font-semibold px-4 py-2 rounded shadow"
           >
             {canvasBg === "black" ? "White Canvas" : "Black Canvas"}
+          </button>
+          <button
+            onClick={handleClusteredLayout}
+            className="w-full lg:w-auto bg-green-700 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded shadow"
+          >
+            Group
+          </button>
+          <button
+            onClick={handleMixLayout}
+            className="w-full lg:w-auto bg-blue-700 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded shadow"
+            title="Mix logos randomly (shuffle)"
+          >
+            Shuffle{" "}
+            <span role="img" aria-label="dice">
+              🎲
+            </span>
           </button>
           <button
             onClick={handleReset}
