@@ -82,42 +82,69 @@ export default function ClientForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-2xl mx-auto p-6 bg-gray-900 shadow-md rounded-lg space-y-4 text-white"
+      className="max-w-2xl mx-auto p-8 bg-ebcont-lightmint border-2 border-ebcont-darkmint shadow-2xl shadow-ebcont-darkmint rounded-xl space-y-6 text-ebcont-darkviolet"
     >
+      <h2 className="text-2xl text-ebcont-darkviolet font-bold text-center mb-2">
+        {isEdit ? "Edit Client" : "Add New Client"}
+      </h2>
+
+      {/* Name */}
       <div>
-        <label className="block text-sm font-medium mb-1 text-gray-300">
-          Name
+        <label className="block text-base font-semibold mb-1 text-ebcont-darkviolet">
+          Name<span className="text-ebcont-fuchsia ml-1">*</span>
         </label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="w-full bg-gray-800 text-white border border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="
+        w-full bg-white text-ebcont-darkviolet border-2 border-ebcont-darkmint
+        rounded px-4 py-2 font-medium
+        focus:outline-none focus:ring-4 focus:ring-ebcont-activviolet
+        placeholder-ebcont-turquoise
+        transition
+      "
+          placeholder="Enter client name"
         />
       </div>
 
+      {/* Address */}
       <div>
-        <label className="block text-sm font-medium mb-1 text-gray-300">
+        <label className="block text-base font-semibold mb-1 text-ebcont-darkviolet">
           Address
         </label>
         <input
           type="text"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-          className="w-full bg-gray-800 text-white border border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="
+        w-full bg-white text-ebcont-darkviolet border-2 border-ebcont-darkmint
+        rounded px-4 py-2 font-medium
+        focus:outline-none focus:ring-4 focus:ring-ebcont-activviolet
+        placeholder-ebcont-turquoise
+        transition
+      "
+          placeholder="Enter address"
         />
       </div>
-      {/* <><<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>><>*/}
+
+      {/* Industry */}
       <div>
-        <label className="block text-sm font-medium mb-1 text-gray-300">
+        <label className="block text-base font-semibold mb-1 text-ebcont-darkviolet">
           Industry (choose)
         </label>
         <select
           value={industryName}
           onChange={(e) => setIndustryName(e.target.value)}
           required
-          className="w-full bg-gray-800 text-white border border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="
+        w-full bg-white text-ebcont-darkviolet border-2 border-ebcont-darkmint
+        rounded px-4 py-2 font-medium
+        focus:outline-none focus:ring-4 focus:ring-ebcont-activviolet
+        transition
+        placeholder-ebcont-turquoise
+      "
         >
           <option value="" disabled>
             {availableIndustries.length === 0
@@ -132,14 +159,18 @@ export default function ClientForm({
         </select>
       </div>
 
+      {/* Logo upload */}
       <div>
-        <label className="block text-sm font-medium mb-1 text-gray-300">
+        <label className="block text-base font-semibold mb-1 text-ebcont-darkviolet">
           Logo (click or drag & drop)
         </label>
-
         <label
           htmlFor="logo-upload"
-          className="relative flex flex-col items-center justify-center w-full h-44 border-2 border-dashed border-gray-600 rounded-lg cursor-pointer bg-gray-800 hover:border-blue-500 transition"
+          className="
+        relative flex flex-col items-center justify-center w-full h-44
+        border-2 border-dashed border-ebcont-activviolet
+        rounded-xl cursor-pointer bg-white hover:border-ebcont-activviolet hover:border-4 transition
+      "
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => {
             e.preventDefault();
@@ -154,7 +185,7 @@ export default function ClientForm({
                 alt="New preview"
                 className="max-h-28 object-contain mb-2"
               />
-              <p className="text-sm text-gray-300">{logoFile.name}</p>
+              <p className="text-sm text-ebcont-darkmint">{logoFile.name}</p>
             </>
           ) : client?.id && client?.logoBlob && client?.logoType ? (
             <>
@@ -165,10 +196,14 @@ export default function ClientForm({
                 alt="Current logo"
                 className="max-h-28 object-contain mb-2"
               />
-              <p className="text-sm text-gray-400 italic">Current logo</p>
+              <p className="text-sm text-ebcont-turquoise italic">
+                Current logo
+              </p>
             </>
           ) : (
-            <span className="text-gray-400">Click or drag an image here</span>
+            <span className="text-ebcont-activviolet">
+              Click or drag an image here
+            </span>
           )}
 
           <input
@@ -181,18 +216,28 @@ export default function ClientForm({
         </label>
       </div>
 
+      {/* Action buttons */}
       <div className="flex flex-col sm:flex-row items-center gap-3 mt-6">
         <button
           type="submit"
-          className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded shadow"
+          className="
+        w-full sm:w-auto
+        bg-ebcont-activviolet hover:bg-ebcont-fuchsia
+        text-white font-semibold px-6 py-2
+        shadow transition
+      "
         >
           {isEdit ? "Update client" : "Save client"}
         </button>
-
         <button
           type="button"
           onClick={() => router.push("/clients")}
-          className="w-full sm:w-auto bg-gray-700 hover:bg-gray-600 text-white font-semibold px-6 py-2 rounded shadow"
+          className="
+        w-full sm:w-auto
+        bg-ebcont-mint hover:bg-ebcont-turquoise
+        text-ebcont-darkviolet font-semibold px-6 py-2
+        shadow transition
+      "
         >
           Cancel
         </button>
