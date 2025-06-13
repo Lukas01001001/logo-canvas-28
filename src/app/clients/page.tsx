@@ -33,15 +33,33 @@ export default async function ClientsPage() {
           {/* BUTTON NEW INDUSTRY */}
           <Link
             href="/industries"
-            className="bg-blue-900 hover:bg-blue-700 text-white font-semibold text-sm px-5 py-2 rounded-md whitespace-nowrap min-w-[150px] text-center"
+            className="
+    bg-ebcont-activviolet
+    hover:bg-ebcont-fuchsia
+    text-white
+    font-semibold
+    px-6 py-2
+    shadow-md
+    whitespace-nowrap
+    text-center
+    "
           >
             Add Industry
           </Link>
 
-          {/* BUTTON NEW CLIENT*/}
+          {/* BUTTON NEW CLIENT */}
           <Link
             href="/clients/new"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm px-5 py-2 rounded-md whitespace-nowrap min-w-[150px] text-center"
+            className="
+    bg-ebcont-activviolet
+    hover:bg-ebcont-fuchsia
+    text-white
+    font-semibold
+    px-6 py-2
+    shadow-md
+    whitespace-nowrap
+    text-center
+  "
           >
             Add New Client
           </Link>

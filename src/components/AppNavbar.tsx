@@ -24,13 +24,13 @@ export default function AppNavbar() {
   };
 
   return (
-    // <nav className="fixed top-0 left-0 w-full bg-blue-950/90 border-b border-blue-900 shadow z-50 flex items-center justify-between px-4 py-2">
-    <nav className="fixed top-0 left-0 w-full bg-gray-800/90 border-b border-gray-600 shadow z-50 flex items-center justify-between px-4 py-2">
+    <nav className="fixed top-0 left-0 w-full bg-ebcont-turquoise/80 border-b-2 border-ebcont-darkviolet shadow z-50 flex items-center justify-between px-4 py-2">
+      {/* <nav className="fixed top-0 left-0 w-full bg-ebcont-turquoise/80 border-b-2 border-ebcont-darkviolet shadow z-50 flex items-center justify-between px-4 py-2 rounded-b-2xl"> */}
       {/* L */}
       <Link
         href="/clients"
         onClick={handleLogoClick}
-        className="flex items-center gap-2 hover:bg-gray-700"
+        className="flex items-center gap-2 border-r-transparent hover:bg-ebcont-mint border-r-8 border-ebcont-mint"
       >
         <div className="relative w-30 h-10">
           <Image
@@ -38,12 +38,12 @@ export default function AppNavbar() {
             alt="Logo"
             fill // <-- fills the whole container
             sizes="60px"
-            style={{ objectFit: "contain", background: "white" }}
+            style={{ objectFit: "contain", background: "transparent" }}
             priority
           />
         </div>
 
-        <span className="font-bold text-white text-lg tracking-wide hidden sm:inline">
+        <span className="font-bold text-ebcont-darkviolet text-lg tracking-wide hidden sm:inline">
           Logo Canvas
         </span>
       </Link>
@@ -55,19 +55,19 @@ export default function AppNavbar() {
             <img
               src={session.user.image}
               alt="avatar"
-              className="w-8 h-8 rounded-full border border-gray-600"
+              className="w-8 h-8 rounded-full border border-ebcont-darkviolet"
             />
           )}
-          <div className="flex flex-col text-right text-white text-sm">
+          <div className="flex flex-col text-right text-ebcont-darkviolet text-sm">
             <span>{session.user.name}</span>
             <span className="text-xs opacity-60">{session.user.email}</span>
           </div>
           <button
             //onClick={() => signOut()}
             onClick={handleSignOut}
-            className="ml-2 px-3 py-2 bg-pink-700 hover:bg-pink-800 rounded text-xs font-semibold shadow"
+            className="ml-2 px-3 py-2 bg-ebcont-activvioletdeep hover:bg-ebcont-activviolet text-white text-xs font-semibold shadow"
           >
-            Sign out
+            Sign Out
           </button>
         </div>
       ) : null}

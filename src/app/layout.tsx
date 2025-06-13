@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Logo Generator",
+  title: "Logo Canvas",
   description: "Manage clients and generate logo collages easily.",
 };
 

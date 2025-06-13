@@ -51,17 +51,45 @@ export default function ClientFilters({ availableIndustries }: Props) {
         placeholder="Search by name"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="w-full md:w-1/2 border border-gray-600 bg-gray-800 text-white placeholder-gray-400 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="
+      w-full md:w-1/2
+      border border-ebcont-darkviolet
+      bg-white
+      text-ebcont-darkviolet
+      placeholder-ebcont-darkviolet
+      p-2
+      font-medium
+      focus:outline-none
+      focus:ring-2 focus:ring-ebcont-activviolet
+      transition
+      shadow-sm
+    "
       />
 
       <select
         value={industry}
         onChange={(e) => setIndustry(e.target.value)}
-        className="w-full md:w-1/4 border border-gray-600 bg-gray-800 text-white placeholder-gray-400 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="
+      w-full md:w-1/4
+      border border-ebcont-darkviolet
+      bg-white
+      text-ebcont-darkviolet
+      p-2
+      font-medium
+      focus:outline-none
+      focus:ring-2 focus:ring-ebcont-activviolet
+      transition
+      shadow-sm
+      placeholder-ebcont-turquoise
+    "
       >
         <option value="">All industries</option>
         {availableIndustries.map((ind) => (
-          <option key={ind} value={ind} className="bg-gray-800 text-white">
+          <option
+            key={ind}
+            value={ind}
+            className="bg-white text-ebcont-darkviolet"
+          >
             {ind}
           </option>
         ))}
@@ -69,7 +97,17 @@ export default function ClientFilters({ availableIndustries }: Props) {
 
       <button
         onClick={handleClear}
-        className="border border-yellow-500 text-yellow-500 font-semibold hover:bg-gray-700 hover:text-white p-2 rounded-md md:w-auto"
+        className="
+      border-2 border-ebcont-fuchsia
+      text-ebcont-fuchsia
+      bg-white
+      font-semibold
+      px-4 py-2
+      hover:bg-ebcont-fuchsia hover:text-white
+      shadow-sm
+      transition
+      md:w-auto
+    "
       >
         Clear Filters
       </button>

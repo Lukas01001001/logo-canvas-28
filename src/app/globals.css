@@ -11,6 +11,8 @@
 @theme inline {
   --color-ebcont-magnolia: #f1f1f9;
 
+  /* --color-ebcont-lightmint: #c3e2d9; */
+  --color-ebcont-lightmint: #c3e2d9;
   --color-ebcont-mint: #9ee7d9;
   --color-ebcont-turquoise: #64baaa;
   --color-ebcont-darkmint: #468e81;
@@ -116,9 +118,11 @@ body.export-mode #logo-canvas .canvas-toggle-btn {
 :root {
   --radius: 0.625rem;
   /* --background: oklch(1 0 0); */
-  --background: #181b24;
+  /* --background: #181b24; */
+  --background: #f1f1f9;
   /* --foreground: oklch(0.141 0.005 285.823); */
-  --foreground: #ededed;
+  /* --foreground: #ededed; */
+  --foreground: #28183b;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.141 0.005 285.823);
   --popover: oklch(1 0 0);

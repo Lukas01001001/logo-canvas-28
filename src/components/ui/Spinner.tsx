@@ -7,13 +7,13 @@ export default function Spinner() {
     <div className="flex flex-col items-center justify-center py-20">
       <div className="relative h-32 w-32 mb-4">
         {/* Background */}
-        {/* <div className="absolute inset-0 rounded-full bg-[#000000]"></div> */}
         <div className="absolute inset-0 rounded-full bg-transparent"></div>
         {/* Spinner */}
-        {/* <div className="animate-spin rounded-full h-32 w-32 border-t-8 border-[#f7931a] border-opacity-90"></div> */}
-        <div className="animate-spin rounded-full h-32 w-32 border-t-8 border-white border-opacity-90"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-t-8 border-ebcont-darkmint border-opacity-90"></div>
       </div>
-      <p className="text-white text-lg font-bold opacity-90">Loading...</p>
+      <p className="text-ebcont-darkmint text-lg font-bold opacity-90">
+        Loading...
+      </p>
     </div>
   );
 }

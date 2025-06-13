@@ -41,8 +41,10 @@ export default function ClientCard({
 
   return (
     <div
-      className={`flex items-center gap-4 border rounded shadow bg-gray-800 hover:bg-gray-700 transition p-4 cursor-pointer group ${
-        selected ? "ring-2 ring-blue-500 border-blue-400" : "border-gray-600"
+      className={`flex items-center gap-2 md:gap-6 border rounded shadow bg-ebcont-lightmint hover:bg-ebcont-turquoise/80 transition p-4 cursor-pointer group ${
+        selected
+          ? "ring-2 ring-ebcont-darkmint border-ebcont-darkmint"
+          : "border-2 border-ebcont-turquoise"
       }`}
       onClick={(e) => {
         // Allows you to click the entire tab, but not capture the link click
@@ -64,7 +66,12 @@ export default function ClientCard({
         type="checkbox"
         checked={selected}
         onChange={toggle}
-        className="w-14 h-14 accent-blue-500 cursor-pointer"
+        className="w-14 h-14 accent-ebcont-darkmint border-2 border-ebcont-darkmint
+      rounded-xl
+      shadow
+      cursor-pointer
+      focus:ring-4 focus:ring-ebcont-mint
+      transition"
         title="Select client"
         aria-label={`Select client ${name}${
           industry ? ` from industry ${industry}` : ""
@@ -74,25 +81,35 @@ export default function ClientCard({
 
       <Link
         href={linkHref}
-        className="flex items-center gap-4 flex-1 group-hover:underline focus:underline"
+        className="flex items-center gap-4 flex-1"
         tabIndex={-1}
         draggable={false}
       >
         {logoUrl ? (
-          <img
-            src={logoUrl}
-            alt={`${name} logo`}
-            className="w-20 h-20 object-contain"
-          />
+          <div className="mx-4 md:mx-8 border-4 border-white shadow-lg shadow-ebcont-darkmint">
+            <img
+              src={logoUrl}
+              alt={`${name} logo`}
+              className="w-28 h-20 object-contain bg-white"
+            />
+          </div>
         ) : (
-          <div className="w-20 h-20 bg-gray-100 flex items-center justify-center text-sm text-gray-500">
+          <div
+            className="w-20 h-20 flex items-center justify-center text-base font-semibold rounded shadow
+        bg-ebcont-turquoise text-ebcont-darkviolet"
+          >
             No Logo
           </div>
         )}
-
-        <div>
-          <p className="text-lg font-semibold text-white">{name}</p>
-          {industry && <p className="text-gray-300 text-sm">{industry}</p>}
+        <div className="min-w-0">
+          <p className="text-lg font-semibold text-ebcont-darkviolet truncate">
+            {name}
+          </p>
+          {industry && (
+            <p className="text-sm text-ebcont-darkviolet truncate">
+              {industry}
+            </p>
+          )}
         </div>
       </Link>
     </div>

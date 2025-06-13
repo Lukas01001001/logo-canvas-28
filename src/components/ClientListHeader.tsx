@@ -30,7 +30,8 @@ export default function ClientListHeader({
       <div className="flex flex-wrap gap-4">
         <button
           onClick={onToggleLayout}
-          className="hidden sm:inline-flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md transition"
+          className="hidden sm:inline-flex items-center gap-2 bg-ebcont-darkviolet hover:bg-ebcont-deepviolet
+           text-white font-semibold py-2 px-4 shadow transition"
         >
           {layout === "grid" ? (
             <>
@@ -46,7 +47,8 @@ export default function ClientListHeader({
         </button>
         <button
           onClick={onSelectAll}
-          className="w-full sm:w-auto bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-md"
+          className="w-full sm:w-auto bg-ebcont-fuchsia hover:bg-ebcont-activvioletdark text-white 
+          font-semibold py-2 px-4 min-w-[120px] shadow transition"
         >
           {allSelected ? "Deselect All" : "Select All"}
         </button>
@@ -55,14 +57,15 @@ export default function ClientListHeader({
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <button
               onClick={onReset}
-              className="w-full sm:w-auto bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded-md"
+              className="w-full sm:w-auto border-2 border-ebcont-fuchsia text-ebcont-fuchsia bg-white hover:bg-ebcont-fuchsia hover:text-white 
+              font-semibold py-2 px-4 shadow transition"
             >
               Reset Checkbox
             </button>
 
             <button
               onClick={onGenerate}
-              className="w-full sm:w-auto bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded-md"
+              className="w-full sm:w-auto bg-ebcont-activviolet hover:bg-ebcont-fuchsia text-white font-semibold py-2 px-4 shadow transition"
             >
               Generate Logo Forest
             </button>
