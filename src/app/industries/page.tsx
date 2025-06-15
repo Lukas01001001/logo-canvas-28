@@ -116,101 +116,172 @@ export default function IndustriesPage() {
     );
 
   return (
-    <main className="max-w-2xl mx-auto p-6 mt-12 bg-gray-900 rounded-xl shadow text-white">
-      <h1 className="text-3xl font-bold mb-6 text-center">Manage Industries</h1>
+    <main className="max-w-2xl mx-auto py-12 px-4">
+      {/*  */}
+      <div
+        className="
+    p-8 bg-ebcont-lightmint border-2 border-ebcont-darkmint
+    shadow-2xl shadow-ebcont-darkmint rounded-xl
+    text-ebcont-darkviolet
+    space-y-8
+  "
+      >
+        <h1 className="text-3xl text-ebcont-darkviolet font-bold mb-8 text-center tracking-tight">
+          Manage Industries
+        </h1>
 
-      <form onSubmit={handleAdd} className="flex gap-2 mb-8">
-        <input
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-          placeholder="Add new industry"
-          className="flex-1 px-4 py-2 bg-gray-800 border border-gray-600 rounded focus:ring-2 focus:ring-blue-500 outline-none"
-          minLength={2}
-          required
-        />
-        <button
-          type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow font-semibold"
-          disabled={adding}
+        {/* ADD FORM */}
+        <form
+          onSubmit={handleAdd}
+          className="flex flex-col sm:flex-row gap-3 items-center w-full"
         >
-          {adding ? "Adding..." : "Add"}
-        </button>
-      </form>
-
-      {error && <div className="mb-4 text-red-400">{error}</div>}
-
-      <ul className="divide-y divide-gray-700">
-        {industries.map((industry) => (
-          <li
-            key={industry.id}
-            className="flex items-center justify-between py-3"
+          <input
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+            placeholder="Add new industry"
+            minLength={2}
+            required
+            className="
+        flex-1 w-full px-4 py-2
+        bg-white text-ebcont-darkviolet
+        border-2 border-ebcont-darkmint rounded
+        font-medium placeholder-ebcont-turquoise
+        focus:outline-none focus:ring-4 focus:ring-ebcont-activviolet
+        transition
+      "
+          />
+          <button
+            type="submit"
+            className="
+            w-full sm:w-auto
+        bg-ebcont-activviolet hover:bg-ebcont-activvioletdeep
+        text-white font-semibold
+        px-6 py-2 shadow transition min-w-[180px]
+        disabled:opacity-60 disabled:cursor-not-allowed
+      "
+            disabled={adding}
           >
-            {editId === industry.id ? (
-              <>
-                <input
-                  value={editName}
-                  onChange={(e) => setEditName(e.target.value)}
-                  className="flex-1 px-3 py-1 bg-gray-800 border border-gray-600 rounded focus:ring-2 focus:ring-blue-500 outline-none mr-2"
-                />
-                <button
-                  className="bg-blue-600 px-3 py-1 rounded font-semibold mr-2"
-                  onClick={() => handleEdit(industry.id)}
-                  disabled={editName.trim().length < 2}
-                  type="button"
-                >
-                  Save
-                </button>
-                <button
-                  className="text-gray-400 hover:text-red-400"
-                  onClick={() => setEditId(null)}
-                  type="button"
-                >
-                  Cancel
-                </button>
-              </>
-            ) : (
-              <>
-                <span className="flex-1">
-                  {industry.name}
-                  <span className="text-xs text-gray-400 ml-3">
-                    {industry._count?.clients ?? 0} clients
+            {adding ? "Adding..." : "Add Industry"}
+          </button>
+        </form>
+
+        {/* ERROR */}
+        {error && (
+          <div className="mb-4 text-ebcont-fuchsia font-semibold text-sm text-center">
+            {error}
+          </div>
+        )}
+
+        {/* LIST */}
+        <ul className="space-y-3">
+          {industries.map((industry) => (
+            <li
+              key={industry.id}
+              className="
+          flex flex-col sm:flex-row items-center justify-between gap-3 py-3 px-4
+          bg-white border-2 border-ebcont-darkmint rounded
+          shadow-lg shadow-ebcont-darkmint transition-all
+        "
+            >
+              {editId === industry.id ? (
+                <div className="flex-1 flex flex-col sm:flex-row items-center gap-3 w-full">
+                  <input
+                    value={editName}
+                    onChange={(e) => setEditName(e.target.value)}
+                    className="
+                    w-full sm:w-auto
+                flex-1 px-3 py-1
+                bg-ebcont-magnolia text-ebcont-darkviolet
+                border-2 border-ebcont-darkmint rounded
+                font-medium
+                focus:outline-none focus:ring-4 focus:ring-ebcont-activviolet
+                transition
+              "
+                  />
+                  <button
+                    className="
+                bg-ebcont-activviolet hover:bg-ebcont-fuchsia
+                text-white font-semibold px-4 py-1 shadow transition mr-2
+                disabled:opacity-60 disabled:cursor-not-allowed
+              "
+                    onClick={() => handleEdit(industry.id)}
+                    disabled={editName.trim().length < 2}
+                    type="button"
+                  >
+                    Save
+                  </button>
+                  <button
+                    className="
+                text-ebcont-darkviolet hover:text-ebcont-fuchsia
+                font-semibold px-2 transition
+              "
+                    onClick={() => setEditId(null)}
+                    type="button"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              ) : (
+                <div className="flex-1 flex flex-col sm:flex-row items-center gap-4">
+                  <span className="flex-1 flex items-center gap-2 font-medium">
+                    {industry.name}
+                    <span
+                      className="
+                ml-3 px-3 py-0.5 rounded-full bg-ebcont-mint text-xs text-ebcont-darkviolet font-semibold
+              "
+                    >
+                      {industry._count?.clients ?? 0} clients
+                    </span>
                   </span>
-                </span>
-                <button
-                  className="text-blue-400 hover:text-blue-200 mr-2"
-                  onClick={() => {
-                    setEditId(industry.id);
-                    setEditName(industry.name);
-                  }}
-                >
-                  Edit
-                </button>
-                <button
-                  className={`text-red-400 hover:text-red-600 ${
-                    industry._count?.clients
-                      ? "opacity-40 cursor-not-allowed"
-                      : ""
-                  }`}
-                  disabled={!!industry._count?.clients}
-                  onClick={() =>
-                    !industry._count?.clients && handleDeleteClick(industry.id)
-                  }
-                >
-                  Delete
-                </button>
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
-      {confirmDeleteId !== null && (
-        <ConfirmModal
-          message="Are you sure you want to delete this industry? This action cannot be undone."
-          onConfirm={confirmDelete}
-          onCancel={cancelDelete}
-          isDeleting={isDeleting}
-        />
-      )}
+                  <div className="flex items-center gap-2 mt-2 sm:mt-0">
+                    <button
+                      className="
+                text-ebcont-activviolet hover:text-ebcont-fuchsia
+                font-semibold px-2 transition mr-1
+              "
+                      onClick={() => {
+                        setEditId(industry.id);
+                        setEditName(industry.name);
+                      }}
+                      type="button"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className={`
+                text-ebcont-fuchsia hover:text-ebcont-activviolet font-semibold px-2 transition
+                ${
+                  industry._count?.clients
+                    ? "opacity-40 cursor-not-allowed"
+                    : ""
+                }
+              `}
+                      disabled={!!industry._count?.clients}
+                      onClick={() =>
+                        !industry._count?.clients &&
+                        handleDeleteClick(industry.id)
+                      }
+                      type="button"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+
+        {/* MODAL DELETE */}
+        {confirmDeleteId !== null && (
+          <ConfirmModal
+            message="Are you sure you want to delete this industry? This action cannot be undone."
+            onConfirm={confirmDelete}
+            onCancel={cancelDelete}
+            isDeleting={isDeleting}
+          />
+        )}
+      </div>
     </main>
   );
 }
