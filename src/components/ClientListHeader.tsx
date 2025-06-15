@@ -30,8 +30,10 @@ export default function ClientListHeader({
       <div className="flex flex-wrap gap-4">
         <button
           onClick={onToggleLayout}
-          className="hidden sm:inline-flex items-center gap-2 bg-ebcont-darkviolet hover:bg-ebcont-deepviolet
-           text-white font-semibold py-2 px-4 shadow transition"
+          className="hidden sm:inline-flex items-center gap-2 bg-ebcont-lightmint 
+           text-darkviolet
+            hover:bg-ebcont-darkmint hover:text-white
+           font-semibold py-2 px-4 shadow transition"
         >
           {layout === "grid" ? (
             <>

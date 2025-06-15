@@ -21,37 +21,64 @@ type Props = {
 export function ConfirmPlacementDialog({ open, onSelect, onCancel }: Props) {
   return (
     <Dialog open={open} onOpenChange={onCancel}>
-      <DialogContent className="rounded bg-[#181c23]">
-        <DialogHeader>
-          <DialogTitle className="text-white text-lg font-bold">
+      <DialogContent
+        className="
+          rounded
+          border-2 border-ebcont-darkmint
+          bg-ebcont-magnolia
+          shadow-2xl shadow-ebcont-darkmint
+          w-full max-w-md p-0
+        "
+      >
+        <DialogHeader className="p-4">
+          <DialogTitle className="text-ebcont-darkviolet text-xl font-bold">
             Logo placement
           </DialogTitle>
 
-          <DialogDescription className="text-white">
+          <DialogDescription className="text-ebcont-darkviolet">
             How do you want to arrange logos on the canvas?
           </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col gap-3 py-3">
+        <div className="flex flex-col gap-3 px-6 py-4">
           <Button
             variant="outline"
             onClick={() => onSelect("keep")}
-            className="rounded w-full border-2 border-blue-600 text-blue-400 font-semibold hover:bg-blue-600 hover:text-white transition"
+            className="
+              rounded w-full
+              bg-ebcont-activviolet
+              text-white font-semibold
+              hover:bg-white hover:text-ebcont-activviolet hover:border-2 hover:border-ebcont-activviolet
+              transition
+            "
           >
             Keep current positions
           </Button>
           <Button
             variant="outline"
             onClick={() => onSelect("random")}
-            className="rounded w-full border-2 border-white-600 text-white-400 font-semibold hover:bg-gray-100 hover:text-black transition"
+            className="
+              rounded w-full
+              bg-ebcont-activviolet
+              text-white font-semibold
+              hover:bg-white hover:text-ebcont-activviolet hover:border-2 hover:border-ebcont-activviolet
+              transition
+            "
           >
             Randomly arrange all logos
           </Button>
         </div>
-        <DialogFooter>
+        <DialogFooter className="px-6 pb-6">
           <Button
             variant="outline"
             onClick={onCancel}
-            className="rounded w-full border-2 border-white text-white font-semibold hover:bg-gray-100 hover:text-black transition"
+            className="
+              rounded-none w-full
+              border-2 border-ebcont-activviolet
+              text-ebcont-activviolet font-semibold
+              bg-white
+              hover:bg-ebcont-activviolet hover:text-white
+              transition
+            "
           >
             Cancel
           </Button>

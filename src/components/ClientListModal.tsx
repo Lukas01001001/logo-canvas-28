@@ -9,8 +9,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 // hook and helper to deploy random logo on canvas
 import { useCanvasStore } from "@/store/useCanvasStore";
 import { useConfirmPlacementDialog } from "@/hooks/useConfirmPlacement";
-import { generateRandomLayout } from "@/utils/randomLogoPlacement";
 import { generateClusteredLayout } from "@/utils/clusteredRandomLogoPlacement";
+import Spinner from "./ui/Spinner";
 
 //
 type Client = {
@@ -177,7 +177,7 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
   const handleResetSelection = () => setChecked([]);
 
   return (
-    <div className="flex flex-col h-[60vh]">
+    <div className="flex flex-col h-[60vh] text-ebcont-darkviolet bg-ebcont-magnolia border-2 border-ebcont-darkmint shadow-2xl shadow-ebcont-darkmint p-6 rounded">
       {/* Filters row */}
       <div className="flex flex-col gap-2 mb-2">
         {/* Search, Industry, Clear filters */}
@@ -187,17 +187,21 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
             placeholder="Search by name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full md:w-1/2 border border-gray-600 bg-gray-800 text-white placeholder-gray-400 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full md:w-1/2 border-2 border-ebcont-darkviolet bg-white text-ebcont-darkviolet placeholder-ebcont-darkviolet px-4 py-2 rounded focus:outline-none focus:ring-4 focus:ring-ebcont-activviolet transition font-medium"
           />
 
           <select
             value={industry}
             onChange={(e) => setIndustry(e.target.value)}
-            className="w-full md:w-1/4 border border-gray-600 bg-gray-800 text-white placeholder-gray-400 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full md:w-1/4 border-2 border-ebcont-darkviolet bg-white text-ebcont-darkviolet placeholder-ebcont-turquoise px-4 py-2 rounded focus:outline-none focus:ring-4 focus:ring-ebcont-activviolet transition font-medium"
           >
             <option value="all">All industries</option>
             {industries.map((ind) => (
-              <option key={ind} value={ind} className="bg-gray-800 text-white">
+              <option
+                key={ind}
+                value={ind}
+                className="bg-white text-ebcont-darkviolet"
+              >
                 {ind}
               </option>
             ))}
@@ -209,7 +213,7 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
               onClick={clearFilters}
               variant="outline"
               size="lg"
-              className="border border-yellow-500 text-yellow-500 font-semibold bg-transparent px-4 py-2 rounded text-base transition hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              className="border-2 border-ebcont-fuchsia text-ebcont-fuchsia font-semibold bg-white px-4 py-2 rounded-none text-base transition hover:bg-ebcont-fuchsia hover:text-white focus:outline-none focus:ring-2 focus:ring-ebcont-fuchsia"
             >
               Clear Filters
             </Button>
@@ -222,7 +226,7 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
             onClick={handleSelectAll}
             variant="outline"
             size="lg"
-            className="border border-white-500 text-white-500 font-semibold bg-transparent px-4 py-2 rounded text-base transition hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="border-2 border-ebcont-activviolet text-ebcont-activviolet font-semibold bg-white px-4 py-2 rounded-none text-base transition hover:bg-ebcont-activviolet hover:text-white focus:outline-none focus:ring-2 focus:ring-ebcont-activviolet"
           >
             Select All
           </Button>
@@ -231,12 +235,12 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
             onClick={handleResetSelection}
             variant="outline"
             size="lg"
-            className="border border-white-500 text-white-500 font-semibold bg-transparent px-4 py-2 rounded text-base transition hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="border-2 border-ebcont-activviolet text-ebcont-activviolet font-semibold bg-white px-4 py-2 rounded-none text-base transition hover:bg-ebcont-activviolet hover:text-white focus:outline-none focus:ring-2 focus:ring-ebcont-activviolet"
           >
             Reset Selection
           </Button>
           <span
-            className="ml-auto text-lg text-blue-400"
+            className="ml-auto text-lg text-ebcont-activvioletdeep"
             aria-live="polite"
             aria-atomic="true"
             aria-label={`Selected clients: ${checked.length}`}
@@ -250,14 +254,14 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
             {visibleClients.map((c) => (
               <span
                 key={c.id}
-                className="bg-blue-600 text-white text-xs px-2 py-0.5 rounded font-medium"
+                className="bg-ebcont-activvioletdeep text-white text-xs px-2 py-0.5 rounded font-medium"
                 aria-label={`Selected client: ${c.name}`}
               >
                 {c.name}
               </span>
             ))}
             {extraCount > 0 && (
-              <span className="bg-blue-700 text-white text-xs px-2 py-0.5 rounded font-medium">
+              <span className="bg-ebcont-activvioletdeep text-white text-xs px-2 py-0.5 rounded font-medium">
                 +{extraCount} more
               </span>
             )}
@@ -269,9 +273,10 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
       <div className="flex-1 min-h-0">
         <ScrollArea className="h-full max-h-full">
           {loading || fetching ? (
-            <div className="text-center py-6">Loading clients…</div>
+            // <div className="text-center py-6">Loading clients…</div>
+            <Spinner />
           ) : clients.length === 0 ? (
-            <div className="text-center py-6 text-gray-400">
+            <div className="text-center py-6 text-ebcont-darkviolet">
               No clients found.
             </div>
           ) : (
@@ -279,13 +284,13 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
               {clients.map((client) => (
                 <li
                   key={client.id}
-                  className={`flex items-center gap-4 p-3 rounded bg-[#202432] border transition-all duration-150
+                  className={`flex items-center gap-4 p-3 border-2 rounded-none bg-white transition-all duration-150 font-semibold
         ${
           checked.includes(client.id)
-            ? "border-blue-500 ring-2 ring-blue-800 shadow"
-            : "border-transparent"
+            ? "border-ebcont-activvioletdeep bg-ebcont-lightmint"
+            : "border-ebcont-darkmint"
         }
-        hover:border-blue-400`}
+        hover:bg-ebcont-magnolia`}
                   style={{ minHeight: 64 }}
                 >
                   {/* Checkbox */}
@@ -293,7 +298,7 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
                     type="checkbox"
                     checked={checked.includes(client.id)}
                     onChange={() => handleCheck(client.id)}
-                    className="w-6 h-6 accent-blue-500 cursor-pointer"
+                    className="w-6 h-6 accent-ebcont-activvioletdeep cursor-pointer rounded"
                     id={`client-modal-${client.id}`}
                   />
                   {/* LOGO */}
@@ -301,10 +306,10 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
                     <img
                       src={`data:${client.logoType};base64,${client.logoBlob}`}
                       alt={client.name}
-                      className="w-12 h-12 object-contain rounded bg-white border"
+                      className="w-12 h-12 object-contain rounded bg-white"
                     />
                   ) : (
-                    <div className="w-12 h-12 bg-gray-700 rounded flex items-center justify-center text-xs text-gray-400 border">
+                    <div className="w-12 h-12 bg-ebcont-mint rounded flex items-center justify-center text-xs text-ebcont-darkmint border-2 border-ebcont-darkmint">
                       <svg
                         width={24}
                         height={24}
@@ -330,11 +335,11 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
                     htmlFor={`client-modal-${client.id}`}
                     className="flex-1 cursor-pointer"
                   >
-                    <span className="font-semibold text-base text-white">
+                    <span className="font-semibold text-base text-ebcont-darkviolet">
                       {client.name}
                     </span>
                     {client.industry && (
-                      <span className="ml-2 text-xs text-gray-400">
+                      <span className="ml-2 text-xs text-ebcont-darkviolet">
                         ({client.industry})
                       </span>
                     )}
@@ -346,12 +351,12 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
         </ScrollArea>
       </div>
       {/* Footer */}
-      <div className="flex justify-end gap-2 mt-4 pt-2 flex-shrink-0 border-t border-border bg-background">
+      <div className="flex justify-end gap-2 mt-4 pt-2 flex-shrink-0 border-t-2 border-ebcont-darkmint bg-ebcont-magnolia">
         <Button
           variant="outline"
           onClick={onClose}
           size="lg"
-          className="border border-white-500 text-white-500 font-semibold bg-transparent px-4 py-2 rounded text-base transition hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border-2 border-ebcont-darkviolet text-ebcont-darkviolet font-semibold bg-white px-6 py-2 rounded-none text-base transition hover:bg-ebcont-darkviolet hover:text-white focus:outline-none focus:ring-2 focus:ring-ebcont-darkviolet"
         >
           Cancel
         </Button>
@@ -360,7 +365,7 @@ export function ClientListModal({ onClose }: { onClose: () => void }) {
           onClick={handleConfirm}
           disabled={checked.length === 0}
           size="lg"
-          className="border-2 border-blue-500 text-white-500 font-semibold bg-transparent px-4 py-2 rounded text-base transition hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border-2 border-ebcont-activviolet text-ebcont-activviolet font-semibold bg-white px-6 py-2 rounded-none text-base transition hover:bg-ebcont-activviolet hover:text-white focus:outline-none focus:ring-2 focus:ring-ebcont-activviolet disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Confirm
         </Button>
