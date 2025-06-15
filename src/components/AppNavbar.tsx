@@ -65,7 +65,7 @@ export default function AppNavbar() {
           <button
             //onClick={() => signOut()}
             onClick={handleSignOut}
-            className="ml-2 px-3 py-2 bg-ebcont-activvioletdeep hover:bg-ebcont-activviolet text-white text-xs font-semibold shadow"
+            className="ml-2 px-3 py-2 bg-ebcont-activviolet hover:bg-ebcont-fuchsia text-white text-xs font-semibold shadow"
           >
             Sign Out
           </button>

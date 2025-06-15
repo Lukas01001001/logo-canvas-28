@@ -378,10 +378,12 @@ export default function LogoCanvas({ clients }: Props) {
   return (
     <div className="mb-8">
       {/* Sliders + inputs + buttons */}
-      <div className="flex flex-col lg:flex-row lg:flex-wrap gap-4 mb-4 text-white items-start lg:items-center">
+      <div className="flex flex-col lg:flex-row lg:flex-wrap gap-4 mb-4 text-ebcont-darkviolet items-start lg:items-center">
         {/* Height */}
         <div className="flex items-center gap-2 flex-1 w-full">
-          <label className="whitespace-nowrap">Canvas Height:</label>
+          <label className="whitespace-nowrap font-semibold">
+            Canvas Height:
+          </label>
           <input
             type="range"
             min={MIN_SIZE}
@@ -393,7 +395,7 @@ export default function LogoCanvas({ clients }: Props) {
                 userSetCanvasSize: true,
               })
             }
-            className="flex-1"
+            className="flex-1 accent-ebcont-darkmint"
           />
           <input
             type="number"
@@ -402,13 +404,20 @@ export default function LogoCanvas({ clients }: Props) {
             value={heightInput}
             onChange={handleHeightChange}
             onBlur={handleHeightBlur}
-            className="w-20 px-2 py-1 rounded text-white border border-amber-50"
+            className="
+        w-20 px-2 py-1 rounded
+        bg-white text-ebcont-darkviolet
+        border-2 border-ebcont-darkmint font-semibold
+        focus:outline-none focus:ring-2 focus:ring-ebcont-activviolet
+      "
           />
           <span>px</span>
         </div>
         {/* Width */}
         <div className="flex items-center gap-2 flex-1 w-full">
-          <label className="whitespace-nowrap">Canvas Width:</label>
+          <label className="whitespace-nowrap font-semibold">
+            Canvas Width:
+          </label>
           <input
             type="range"
             min={MIN_SIZE}
@@ -420,7 +429,7 @@ export default function LogoCanvas({ clients }: Props) {
                 userSetCanvasSize: true,
               })
             }
-            className="flex-1"
+            className="flex-1 accent-ebcont-darkmint"
           />
           <input
             type="number"
@@ -429,43 +438,58 @@ export default function LogoCanvas({ clients }: Props) {
             value={widthInput}
             onChange={handleWidthChange}
             onBlur={handleWidthBlur}
-            className="w-20 px-2 py-1 rounded text-white border border-amber-50"
+            className="
+        w-20 px-2 py-1 rounded
+        bg-white text-ebcont-darkviolet
+        border-2 border-ebcont-darkmint font-semibold
+        focus:outline-none focus:ring-2 focus:ring-ebcont-activviolet
+      "
           />
           <span>px</span>
         </div>
-        {/* Buttons */}
-        <div className="flex flex-col md:flex-row lg:flex-row lg:items-center gap-4 w-full lg:w-auto">
+        {/* Buttons (Grid magic) */}
+        <div className="flex flex-col md:flex-row flex-wrap gap-3 w-full sm:w-auto">
           <button
             onClick={handleToggleLogoBGs}
-            className="w-full lg:w-auto bg-purple-700 hover:bg-purple-600 text-white font-semibold px-4 py-2 rounded shadow"
+            className="flex-1 sm:w-[160px] bg-ebcont-activvioletdark hover:bg-ebcont-activviolet
+        text-white font-semibold px-4 py-2 shadow transition"
           >
             Switch Logo BGs
           </button>
           <button
             onClick={toggleCanvasBackground}
-            className="w-full lg:w-auto bg-gray-600 hover:bg-gray-500 text-white font-semibold px-4 py-2 rounded shadow"
+            className="flex-1 sm:w-[160px] bg-ebcont-activvioletdark hover:bg-ebcont-activviolet
+        text-white font-semibold px-4 py-2 shadow transition"
           >
             {canvasBg === "black" ? "White Canvas" : "Black Canvas"}
           </button>
           <button
             onClick={handleClusteredLayout}
-            className="w-full lg:w-auto bg-green-700 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded shadow"
+            className="flex-1 sm:w-[160px] border-2 border-ebcont-activviolet
+                    text-ebcont-activviolet 
+                    hover:bg-ebcont-activviolet hover:text-white
+                      font-semibold px-4 py-2 shadow transition"
           >
             Group
           </button>
           <button
             onClick={handleMixLayout}
-            className="w-full lg:w-auto bg-blue-700 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded shadow"
+            className="flex-1 sm:w-[160px] bg-white
+                      border-2 border-ebcont-activviolet
+                    text-ebcont-activviolet hover:bg-ebcont-activviolet hover:text-white
+                      font-semibold px-4 py-2 shadow transition"
             title="Mix logos randomly (shuffle)"
           >
             Shuffle{" "}
-            <span role="img" aria-label="dice">
+            {/* <span role="img" aria-label="dice">
               🎲
-            </span>
+            </span> */}
           </button>
           <button
             onClick={handleReset}
-            className="w-full lg:w-auto bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded shadow"
+            className="flex-1 sm:w-[160px] border-2 border-ebcont-fuchsia text-ebcont-fuchsia
+        bg-white hover:bg-ebcont-fuchsia hover:text-white
+        font-semibold px-4 py-2 shadow transition"
           >
             Reset Canvas
           </button>
@@ -481,6 +505,7 @@ export default function LogoCanvas({ clients }: Props) {
         hover:border-ebcont-turquoise
           hover:border-2
           rounded overflow-x-auto
+          transition
           ${canvasBg === "black" ? "bg-black" : "bg-white"}
         `}
         style={
@@ -493,7 +518,8 @@ export default function LogoCanvas({ clients }: Props) {
         {/* Button: select all/unselect all */}
         <button
           onClick={handleToggleAll}
-          className="canvas-toggle-btn absolute top-4 right-4 border border-yellow-600 bg-white/60 text-black  hover:bg-gray-300 font-semibold text-sm px-3 py-1 rounded shadow z-50"
+          className="canvas-toggle-btn absolute top-4 right-4 border-2 border-ebcont-fuchsia bg-white/60 text-ebcont-darkviolet
+           hover:bg-ebcont-fuchsia  hover:text-white font-semibold text-sm px-3 py-1 rounded shadow z-50 transition"
         >
           {selectedIds.length === clients.length
             ? "Deselect All"

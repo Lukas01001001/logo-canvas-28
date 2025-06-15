@@ -64,11 +64,11 @@ export default async function GeneratePage({ searchParams }: Props) {
       {/* Top navigation with title and buttons */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         {/* Logo/title center */}
-        <h1 className="text-2xl sm:text-3xl font-bold text-white text-center flex-1">
-          Logo Forest
+        <h1 className="text-2xl sm:text-3xl font-bold text-ebcont-darkviolet text-center flex-1 drop-shadow-sm">
+          Canvas
         </h1>
         {/* Buttons right */}
-        <div className="flex gap-4 items-center justify-end">
+        <div className="flex gap-4 items-center justify-end w-full sm:w-auto">
           <AddClientsButton />
           <DownloadButton />
         </div>
