@@ -82,7 +82,7 @@ export default function ClientForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-2xl mx-auto p-8 bg-ebcont-lightmint border-2 border-ebcont-darkmint shadow-2xl shadow-ebcont-darkmint rounded-xl space-y-6 text-ebcont-darkviolet"
+      className="max-w-2xl mx-auto p-8 bg-ebcont-magnolia border-2 border-ebcont-darkviolet shadow-2xl shadow-ebcont-darkmint rounded space-y-6 text-ebcont-darkviolet"
     >
       <h2 className="text-2xl text-ebcont-darkviolet font-bold text-center mb-2">
         {isEdit ? "Edit Client" : "Add New Client"}
@@ -99,10 +99,10 @@ export default function ClientForm({
           onChange={(e) => setName(e.target.value)}
           required
           className="
-        w-full bg-white text-ebcont-darkviolet border-2 border-ebcont-darkmint
-        rounded px-4 py-2 font-medium
+        w-full bg-white text-ebcont-darkviolet border border-ebcont-darkviolet
+        rounded-none px-4 py-2 font-medium
         focus:outline-none focus:ring-4 focus:ring-ebcont-activviolet
-        placeholder-ebcont-turquoise
+        placeholder-ebcont-activviolet/80
         transition
       "
           placeholder="Enter client name"
@@ -119,10 +119,10 @@ export default function ClientForm({
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           className="
-        w-full bg-white text-ebcont-darkviolet border-2 border-ebcont-darkmint
-        rounded px-4 py-2 font-medium
+        w-full bg-white text-ebcont-darkviolet border border-ebcont-darkviolet
+        rounded-none px-4 py-2 font-medium
         focus:outline-none focus:ring-4 focus:ring-ebcont-activviolet
-        placeholder-ebcont-turquoise
+        placeholder-ebcont-activviolet/80
         transition
       "
           placeholder="Enter address"
@@ -139,11 +139,11 @@ export default function ClientForm({
           onChange={(e) => setIndustryName(e.target.value)}
           required
           className="
-        w-full bg-white text-ebcont-darkviolet border-2 border-ebcont-darkmint
-        rounded px-4 py-2 font-medium
+        w-full bg-white text-ebcont-darkviolet border border-ebcont-darkviolet
+        rounded-none px-4 py-2 font-medium
         focus:outline-none focus:ring-4 focus:ring-ebcont-activviolet
         transition
-        placeholder-ebcont-turquoise
+        placeholder-ebcont-activviolet/80
       "
         >
           <option value="" disabled>
@@ -185,7 +185,7 @@ export default function ClientForm({
                 alt="New preview"
                 className="max-h-28 object-contain mb-2"
               />
-              <p className="text-sm text-ebcont-darkmint">{logoFile.name}</p>
+              <p className="text-sm text-ebcont-activviolet">{logoFile.name}</p>
             </>
           ) : client?.id && client?.logoBlob && client?.logoType ? (
             <>
@@ -196,7 +196,7 @@ export default function ClientForm({
                 alt="Current logo"
                 className="max-h-28 object-contain mb-2"
               />
-              <p className="text-sm text-ebcont-turquoise italic">
+              <p className="text-sm text-ebcont-darkviolet italic">
                 Current logo
               </p>
             </>
@@ -222,7 +222,8 @@ export default function ClientForm({
           type="submit"
           className="
         w-full sm:w-auto
-        bg-ebcont-activviolet hover:bg-ebcont-fuchsia
+        border-2 border-ebcont-activviolet
+        bg-ebcont-activviolet hover:bg-ebcont-fuchsia hover:border-ebcont-fuchsia
         text-white font-semibold px-6 py-2
         shadow transition
       "
@@ -234,8 +235,8 @@ export default function ClientForm({
           onClick={() => router.push("/clients")}
           className="
         w-full sm:w-auto
-        bg-ebcont-mint hover:bg-ebcont-turquoise
-        text-ebcont-darkviolet font-semibold px-6 py-2
+        border-2 border-ebcont-activviolet text-ebcont-activviolet bg-white hover:bg-ebcont-activviolet hover:text-white
+        font-semibold px-6 py-2
         shadow transition
       "
         >

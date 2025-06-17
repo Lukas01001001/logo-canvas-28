@@ -43,8 +43,8 @@ export default function ClientCard({
     <div
       className={`flex items-center gap-2 md:gap-6 border rounded-none shadow bg-white hover:bg-ebcont-magnolia transition p-4 cursor-pointer group ${
         selected
-          ? "ring-2 ring-ebcont-turquoise border-ebcont-turquoise"
-          : "border-2 border-ebcont-turquoise"
+          ? "ring-2 ring-ebcont-darkviolet border-ebcont-darkviolet"
+          : "border-2 border-ebcont-darkviolet"
       }`}
       onClick={(e) => {
         // Allows you to click the entire tab, but not capture the link click
@@ -66,11 +66,11 @@ export default function ClientCard({
         type="checkbox"
         checked={selected}
         onChange={toggle}
-        className="w-14 h-14 accent-ebcont-mint border-2 border-ebcont-mint
+        className="w-14 h-14 accent-ebcont-mint border-2 border-ebcont-darkviolet
       rounded-xl
       shadow
       cursor-pointer
-      focus:ring-4 focus:ring-ebcont-turquoise
+      focus:ring-4 focus:ring-ebcont-activviolet
       transition"
         title="Select client"
         aria-label={`Select client ${name}${
@@ -86,7 +86,7 @@ export default function ClientCard({
         draggable={false}
       >
         {logoUrl ? (
-          <div className="mx-4 md:mx-8 border-4 border-white shadow-lg shadow-ebcont-darkmint">
+          <div className="mx-4 md:mx-8 border-4 border-white shadow-lg shadow-ebcont-darkviolet">
             <img
               src={logoUrl}
               alt={`${name} logo`}
