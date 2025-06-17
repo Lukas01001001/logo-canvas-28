@@ -7,7 +7,7 @@ type Props = {
 
 export default function EmptyState({ message /*, onClear */ }: Props) {
   return (
-    <div className="text-center text-gray-400 mt-12">
+    <div className="text-center text-ebcont-activviolet mt-12">
       <div className="text-4xl mb-4">🤷‍♂️</div>
       <p className="text-lg">{message}</p>
       {/* {onClear && (
