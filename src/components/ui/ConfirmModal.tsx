@@ -26,7 +26,7 @@ export default function ConfirmModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-ebcont-lightmint p-6 rounded-xl shadow-2xl shadow-ebcont-darkmint border-2 border-ebcont-darkmint max-w-sm w-full text-center transition-all">
+      <div className="bg-ebcont-magnolia p-6 rounded shadow-2xl shadow-ebcont-darkmint border-2 border-ebcont-darkviolet max-w-sm w-full text-center transition-all">
         <p className="mb-4 text-ebcont-darkviolet text-base font-semibold">
           {message}
         </p>
@@ -36,9 +36,7 @@ export default function ConfirmModal({
             disabled={isDeleting}
             className="
           px-5 py-2
-          bg-ebcont-mint
-          hover:bg-ebcont-turquoise
-          text-ebcont-darkviolet
+          border-2 border-ebcont-activviolet text-ebcont-activviolet bg-white hover:bg-ebcont-activviolet hover:text-white 
           font-semibold
           
           shadow

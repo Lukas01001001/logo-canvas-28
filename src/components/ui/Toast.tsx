@@ -26,10 +26,10 @@ export default function Toast({ message, type = "info", onClose }: ToastProps) {
   // Standard bg, ebcont border and accent details
   const colorStyle =
     type === "success"
-      ? "bg-ebcont-lightmint border-ebcont-darkmint"
+      ? "bg-ebcont-mint border-ebcont-darkviolet"
       : type === "error"
-      ? "bg-red-600 border-ebcont-fuchsia"
-      : "bg-ebcont-turquoise border-ebcont-darkmint";
+      ? "bg-red-600 border-ebcont-darkviolet"
+      : "bg-ebcont-turquoise border-ebcont-darkviolet";
 
   const icon =
     type === "success" ? (
