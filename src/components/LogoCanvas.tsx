@@ -451,21 +451,25 @@ export default function LogoCanvas({ clients }: Props) {
         <div className="flex flex-col md:flex-row flex-wrap gap-3 w-full sm:w-auto">
           <button
             onClick={handleToggleLogoBGs}
-            className="flex-1 sm:w-[160px] bg-ebcont-activvioletdark hover:bg-ebcont-activviolet
-        text-white font-semibold px-4 py-2 shadow transition"
+            className="flex-1 sm:w-[160px]  bg-white border-2 border-ebcont-activviolet
+                    text-ebcont-activviolet 
+                    hover:bg-ebcont-activviolet hover:text-white
+                      font-semibold px-4 py-2 shadow transition"
           >
             Switch Logo BGs
           </button>
           <button
             onClick={toggleCanvasBackground}
-            className="flex-1 sm:w-[160px] bg-ebcont-activvioletdark hover:bg-ebcont-activviolet
-        text-white font-semibold px-4 py-2 shadow transition"
+            className="flex-1 sm:w-[160px]  bg-white border-2 border-ebcont-activviolet
+                    text-ebcont-activviolet 
+                    hover:bg-ebcont-activviolet hover:text-white
+                      font-semibold px-4 py-2 shadow transition"
           >
             {canvasBg === "black" ? "White Canvas" : "Black Canvas"}
           </button>
           <button
             onClick={handleClusteredLayout}
-            className="flex-1 sm:w-[160px] border-2 border-ebcont-activviolet
+            className="flex-1 sm:w-[160px]  bg-white border-2 border-ebcont-activviolet
                     text-ebcont-activviolet 
                     hover:bg-ebcont-activviolet hover:text-white
                       font-semibold px-4 py-2 shadow transition"
