@@ -26,10 +26,8 @@ export default function BackToListButton() {
     <button
       onClick={handleClick}
       className="
-    bg-ebcont-mint
-    hover:bg-ebcont-turquoise
+    border-2 border-ebcont-activviolet text-ebcont-activviolet bg-white hover:bg-ebcont-activviolet hover:text-white
     font-semibold
-    text-ebcont-darkviolet
     px-5 py-2
     
     shadow

@@ -44,13 +44,13 @@ export default async function ClientDetailPage({ params }: Props) {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
-      <div className="bg-ebcont-lightmint p-8 rounded-xl shadow-2xl shadow-ebcont-darkmint  border-2 border-ebcont-darkmint transition-all">
+      <div className="bg-ebcont-magnolia p-8 rounded-none shadow-2xl shadow-ebcont-darkmint  border-2 border-ebcont-turquoise transition-all">
         <h1 className="text-3xl sm:text-4xl font-bold mb-7 text-center text-ebcont-darkviolet tracking-tight drop-shadow-sm">
           {client.name}
         </h1>
 
         <div className="flex flex-col md:flex-row items-center gap-8">
-          <div className="p-2 w-60 h-60 min-w-[180px] flex items-center shadow-ebcont-darkmint justify-center bg-white rounded-xl shadow-lg border-2 border-ebcont-darkmint hover:scale-105 hover:shadow-2xl transition-all duration-300">
+          <div className="p-2 w-60 h-60 min-w-[180px] flex items-center shadow-ebcont-darkmint justify-center bg-white rounded-none shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-300">
             {base64Logo ? (
               <img
                 src={base64Logo}
@@ -80,7 +80,7 @@ export default async function ClientDetailPage({ params }: Props) {
             </div>
           </div>
         </div>
-        <hr className="my-6 border-ebcont-darkmint" />
+        <hr className="my-6 border border-ebcont-turquoise" />
 
         <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
           <BackToListButton />
