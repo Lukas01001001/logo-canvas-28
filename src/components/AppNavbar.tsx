@@ -24,13 +24,13 @@ export default function AppNavbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-ebcont-turquoise/80 border-b-2 border-ebcont-darkviolet shadow z-50 flex items-center justify-between px-4 py-2">
+    <nav className="fixed top-0 left-0 w-full bg-ebcont-magnolia/80 border-b-4 border-ebcont-darkviolet shadow z-50 flex items-center justify-between px-4 py-2">
       {/* <nav className="fixed top-0 left-0 w-full bg-ebcont-turquoise/80 border-b-2 border-ebcont-darkviolet shadow z-50 flex items-center justify-between px-4 py-2 rounded-b-2xl"> */}
       {/* L */}
       <Link
         href="/clients"
         onClick={handleLogoClick}
-        className="flex items-center gap-2 border-r-transparent hover:bg-ebcont-mint border-r-8 border-ebcont-mint"
+        className="flex items-center gap-2 border-r-transparent hover:bg-ebcont-lightmint border-r-8 border-ebcont-mint"
       >
         <div className="relative w-30 h-10">
           <Image
