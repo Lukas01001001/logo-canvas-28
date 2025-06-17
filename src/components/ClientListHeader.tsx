@@ -30,9 +30,9 @@ export default function ClientListHeader({
       <div className="flex flex-wrap gap-4">
         <button
           onClick={onToggleLayout}
-          className="hidden sm:inline-flex items-center gap-2 bg-ebcont-lightmint 
-           text-darkviolet
-            hover:bg-ebcont-darkmint hover:text-white
+          className="hidden sm:inline-flex items-center gap-2 border-2 border-ebcont-activviolet bg-white 
+           text-ebcont-activviolet
+            hover:bg-ebcont-activviolet hover:text-white
            font-semibold py-2 px-4 shadow transition"
         >
           {layout === "grid" ? (
@@ -49,7 +49,7 @@ export default function ClientListHeader({
         </button>
         <button
           onClick={onSelectAll}
-          className="w-full sm:w-auto bg-ebcont-fuchsia hover:bg-ebcont-activvioletdark text-white 
+          className="w-full sm:w-auto  border-2 border-ebcont-activviolet text-ebcont-activviolet bg-white hover:bg-ebcont-activviolet hover:text-white 
           font-semibold py-2 px-4 min-w-[120px] shadow transition"
         >
           {allSelected ? "Deselect All" : "Select All"}
