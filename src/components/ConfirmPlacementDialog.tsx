@@ -24,9 +24,9 @@ export function ConfirmPlacementDialog({ open, onSelect, onCancel }: Props) {
       <DialogContent
         className="
           rounded
-          border-2 border-ebcont-darkmint
+          border-2 border-ebcont-darkviolet
           bg-ebcont-magnolia
-          shadow-2xl shadow-ebcont-darkmint
+          shadow-2xl shadow-ebcont-darkviolet
           w-full max-w-md p-0
         "
       >
@@ -44,7 +44,7 @@ export function ConfirmPlacementDialog({ open, onSelect, onCancel }: Props) {
             variant="outline"
             onClick={() => onSelect("keep")}
             className="
-              rounded w-full
+              rounded-none w-full
               bg-ebcont-activviolet
               text-white font-semibold
               hover:bg-white hover:text-ebcont-activviolet hover:border-2 hover:border-ebcont-activviolet
@@ -57,7 +57,7 @@ export function ConfirmPlacementDialog({ open, onSelect, onCancel }: Props) {
             variant="outline"
             onClick={() => onSelect("random")}
             className="
-              rounded w-full
+              rounded-none w-full
               bg-ebcont-activviolet
               text-white font-semibold
               hover:bg-white hover:text-ebcont-activviolet hover:border-2 hover:border-ebcont-activviolet
@@ -67,18 +67,18 @@ export function ConfirmPlacementDialog({ open, onSelect, onCancel }: Props) {
             Randomly arrange all logos
           </Button>
         </div>
-        <DialogFooter className="px-6 pb-6">
+        <DialogFooter className="px-6 pb-6 flex !justify-center">
           <Button
             variant="outline"
             onClick={onCancel}
             className="
-              rounded-none w-full
-              border-2 border-ebcont-activviolet
-              text-ebcont-activviolet font-semibold
-              bg-white
-              hover:bg-ebcont-activviolet hover:text-white
-              transition
-            "
+      rounded-none
+      border-2 border-ebcont-activviolet
+      text-ebcont-activviolet font-semibold
+      bg-white
+      hover:bg-ebcont-activviolet hover:text-white
+      transition
+    "
           >
             Cancel
           </Button>

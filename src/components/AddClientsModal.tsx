@@ -19,7 +19,14 @@ type Props = {
 export function AddClientsModal({ open, setOpen }: Props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="border-2 border-ebcont-darkmint bg-ebcont-lightmint rounded w-full max-w-full md:max-w-2xl lg:max-w-3xl max-h-[80vh] flex flex-col justify-between">
+      <DialogContent
+        className="border-2 border-ebcont-darkviolet bg-ebcont-magnolia rounded 
+      w-full max-w-full md:max-w-2xl lg:max-w-3xl 
+      max-h-[95vh] h-[90vh] 
+      flex flex-col justify-between
+      overflow-y-auto
+      "
+      >
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-ebcont-darkviolet tracking-tight">
             Add clients to canvas

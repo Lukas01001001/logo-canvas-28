@@ -101,7 +101,7 @@ export default function ClientForm({
           className="
         w-full bg-white text-ebcont-darkviolet border border-ebcont-darkviolet
         rounded-none px-4 py-2 font-medium
-        focus:outline-none focus:ring-4 focus:ring-ebcont-activviolet
+        focus:outline-none focus:ring-2 focus:ring-ebcont-activviolet
         placeholder-ebcont-activviolet/80
         transition
       "
@@ -121,7 +121,7 @@ export default function ClientForm({
           className="
         w-full bg-white text-ebcont-darkviolet border border-ebcont-darkviolet
         rounded-none px-4 py-2 font-medium
-        focus:outline-none focus:ring-4 focus:ring-ebcont-activviolet
+        focus:outline-none focus:ring-2 focus:ring-ebcont-activviolet
         placeholder-ebcont-activviolet/80
         transition
       "
@@ -141,7 +141,7 @@ export default function ClientForm({
           className="
         w-full bg-white text-ebcont-darkviolet border border-ebcont-darkviolet
         rounded-none px-4 py-2 font-medium
-        focus:outline-none focus:ring-4 focus:ring-ebcont-activviolet
+        focus:outline-none focus:ring-2 focus:ring-ebcont-activviolet
         transition
         placeholder-ebcont-activviolet/80
       "
