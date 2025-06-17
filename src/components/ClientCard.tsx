@@ -41,9 +41,9 @@ export default function ClientCard({
 
   return (
     <div
-      className={`flex items-center gap-2 md:gap-6 border rounded shadow bg-ebcont-lightmint hover:bg-ebcont-turquoise/80 transition p-4 cursor-pointer group ${
+      className={`flex items-center gap-2 md:gap-6 border rounded-none shadow bg-white hover:bg-ebcont-magnolia transition p-4 cursor-pointer group ${
         selected
-          ? "ring-2 ring-ebcont-darkmint border-ebcont-darkmint"
+          ? "ring-2 ring-ebcont-turquoise border-ebcont-turquoise"
           : "border-2 border-ebcont-turquoise"
       }`}
       onClick={(e) => {
@@ -66,11 +66,11 @@ export default function ClientCard({
         type="checkbox"
         checked={selected}
         onChange={toggle}
-        className="w-14 h-14 accent-ebcont-darkmint border-2 border-ebcont-darkmint
+        className="w-14 h-14 accent-ebcont-mint border-2 border-ebcont-mint
       rounded-xl
       shadow
       cursor-pointer
-      focus:ring-4 focus:ring-ebcont-mint
+      focus:ring-4 focus:ring-ebcont-turquoise
       transition"
         title="Select client"
         aria-label={`Select client ${name}${
