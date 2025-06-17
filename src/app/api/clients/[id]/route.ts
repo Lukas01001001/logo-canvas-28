@@ -115,23 +115,23 @@ export async function DELETE(req: Request, { params }: any) {
       where: { id: clientId },
     });
 
-    // 3. Check the industry for other customers
-    if (client.industryId) {
-      const clientsInIndustry = await prisma.client.count({
-        where: { industryId: client.industryId },
-      });
+    // // 3. Check the industry for other customers
+    // if (client.industryId) {
+    //   const clientsInIndustry = await prisma.client.count({
+    //     where: { industryId: client.industryId },
+    //   });
 
-      // 4. If there is none - remove the branch
-      if (clientsInIndustry === 0) {
-        await prisma.industry.delete({
-          where: { id: client.industryId },
-        });
-      }
-    }
+    //   // 4. If there is none - remove the branch
+    //   if (clientsInIndustry === 0) {
+    //     await prisma.industry.delete({
+    //       where: { id: client.industryId },
+    //     });
+    //   }
+    // }
 
     return NextResponse.json({
       success: true,
-      message: "Client (and possibly orphaned industry) deleted successfully.",
+      message: "Client deleted successfully.",
     });
   } catch (error) {
     console.error("Delete error:", error);
