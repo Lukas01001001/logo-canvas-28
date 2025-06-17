@@ -395,7 +395,7 @@ export default function LogoCanvas({ clients }: Props) {
                 userSetCanvasSize: true,
               })
             }
-            className="flex-1 accent-ebcont-darkmint"
+            className="flex-1 accent-ebcont-darkviolet"
           />
           <input
             type="number"
@@ -405,9 +405,9 @@ export default function LogoCanvas({ clients }: Props) {
             onChange={handleHeightChange}
             onBlur={handleHeightBlur}
             className="
-        w-20 px-2 py-1 rounded
+        w-20 px-2 py-1 rounded-none
         bg-white text-ebcont-darkviolet
-        border-2 border-ebcont-darkmint font-semibold
+        border border-ebcont-darkviolet font-semibold
         focus:outline-none focus:ring-2 focus:ring-ebcont-activviolet
       "
           />
@@ -429,7 +429,7 @@ export default function LogoCanvas({ clients }: Props) {
                 userSetCanvasSize: true,
               })
             }
-            className="flex-1 accent-ebcont-darkmint"
+            className="flex-1 accent-ebcont-darkviolet"
           />
           <input
             type="number"
@@ -439,9 +439,9 @@ export default function LogoCanvas({ clients }: Props) {
             onChange={handleWidthChange}
             onBlur={handleWidthBlur}
             className="
-        w-20 px-2 py-1 rounded
+        w-20 px-2 py-1 rounded-none
         bg-white text-ebcont-darkviolet
-        border-2 border-ebcont-darkmint font-semibold
+        border border-ebcont-darkviolet font-semibold
         focus:outline-none focus:ring-2 focus:ring-ebcont-activviolet
       "
           />

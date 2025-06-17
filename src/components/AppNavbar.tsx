@@ -30,7 +30,8 @@ export default function AppNavbar() {
       <Link
         href="/clients"
         onClick={handleLogoClick}
-        className="flex items-center gap-2 border-r-transparent hover:bg-ebcont-lightmint border-r-8 border-ebcont-mint"
+        /* className="flex items-center gap-2 border-r-transparent hover:bg-ebcont-lightmint border-r-8 border-ebcont-mint" */
+        className="flex items-center gap-2"
       >
         <div className="relative w-30 h-10">
           <Image
