@@ -120,8 +120,8 @@ export default function IndustriesPage() {
       {/*  */}
       <div
         className="
-    p-8 bg-ebcont-lightmint border-2 border-ebcont-darkmint
-    shadow-2xl shadow-ebcont-darkmint rounded-xl
+    p-8 bg-ebcont-magnolia border-2 border-ebcont-darkviolet
+    shadow-2xl shadow-ebcont-darkmint rounded
     text-ebcont-darkviolet
     space-y-8
   "
@@ -144,9 +144,9 @@ export default function IndustriesPage() {
             className="
         flex-1 w-full px-4 py-2
         bg-white text-ebcont-darkviolet
-        border-2 border-ebcont-darkmint rounded
-        font-medium placeholder-ebcont-turquoise
-        focus:outline-none focus:ring-4 focus:ring-ebcont-activviolet
+        border border-ebcont-darkviolet rounded-none
+        font-medium placeholder-ebcont-activviolet/80
+        focus:outline-none focus:ring-2 focus:ring-ebcont-activviolet
         transition
       "
           />
@@ -179,8 +179,8 @@ export default function IndustriesPage() {
               key={industry.id}
               className="
           flex flex-col sm:flex-row items-center justify-between gap-3 py-3 px-4
-          bg-white border-2 border-ebcont-darkmint rounded
-          shadow-lg shadow-ebcont-darkmint transition-all
+          bg-white border border-ebcont-darkviolet rounded-none
+          shadow-lg shadow-ebcont-darkviolet transition-all
         "
             >
               {editId === industry.id ? (
@@ -188,13 +188,15 @@ export default function IndustriesPage() {
                   <input
                     value={editName}
                     onChange={(e) => setEditName(e.target.value)}
+                    placeholder="Enter industry"
                     className="
                     w-full sm:w-auto
                 flex-1 px-3 py-1
                 bg-ebcont-magnolia text-ebcont-darkviolet
-                border-2 border-ebcont-darkmint rounded
+                border border-ebcont-darkviolet rounded-none
                 font-medium
-                focus:outline-none focus:ring-4 focus:ring-ebcont-activviolet
+                focus:outline-none focus:ring-2 focus:ring-ebcont-activviolet
+                placeholder-ebcont-activviolet/80
                 transition
               "
                   />
