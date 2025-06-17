@@ -115,6 +115,18 @@ body.export-mode #logo-canvas .canvas-toggle-btn {
   animation: fade-in 0.3s ease-out;
 }
 
+.bg-ebcont-soft-gradient {
+  background: linear-gradient(
+    120deg,
+    var(--color-ebcont-magnolia) 0%,
+    rgba(157, 231, 217, 0.36) 18%,
+    rgba(100, 186, 170, 0.27) 42%,
+    rgba(99, 39, 235, 0.21) 66%,
+    rgba(187, 68, 169, 0.19) 100%
+  );
+  background-attachment: fixed;
+}
+
 :root {
   --radius: 0.625rem;
   /* --background: oklch(1 0 0); */

@@ -27,8 +27,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      {/*  bg-gradient-to-br from-ebcont-fuchsia via-ebcont-turquoise to-ebcont-activviolet */}
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`
+    ${geistSans.variable} ${geistMono.variable} antialiased
+    min-h-screen
+    bg-ebcont-soft-gradient
+    bg-fixed
+  `}
       >
         <AppProviders>{children}</AppProviders>
       </body>
