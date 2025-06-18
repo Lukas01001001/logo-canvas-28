@@ -46,7 +46,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 to-pink-900 text-white relative overflow-hidden">
       <Image
-        src="/background-logos.png"
+        src="/background_logos_ebcont.png"
         alt="Background logos"
         fill
         className="object-cover opacity-10 pointer-events-none"
