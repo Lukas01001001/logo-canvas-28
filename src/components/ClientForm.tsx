@@ -82,7 +82,7 @@ export default function ClientForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-2xl mx-auto p-8 bg-ebcont-magnolia border-2 border-ebcont-darkviolet shadow-2xl shadow-ebcont-darkmint rounded space-y-6 text-ebcont-darkviolet"
+      className="max-w-2xl mx-auto p-8 bg-ebcont-magnolia border-2 border-ebcont-darkviolet shadow-2xl shadow-ebcont-darkviolet rounded space-y-6 text-ebcont-darkviolet"
     >
       <h2 className="text-2xl text-ebcont-darkviolet font-bold text-center mb-2">
         {isEdit ? "Edit Client" : "Add New Client"}

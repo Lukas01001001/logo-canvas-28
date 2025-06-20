@@ -28,11 +28,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/*  bg-gradient-to-br from-ebcont-fuchsia via-ebcont-turquoise to-ebcont-activviolet */}
-      <body
+      {/* <body
         className={`
     ${geistSans.variable} ${geistMono.variable} antialiased
     min-h-screen
     bg-ebcont-soft-gradient
+    bg-fixed
+  `}
+      > */}
+      <body
+        className={`
+    ${geistSans.variable} ${geistMono.variable} antialiased
+    min-h-screen
+    bg-white
     bg-fixed
   `}
       >

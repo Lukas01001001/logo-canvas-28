@@ -121,7 +121,7 @@ export default function IndustriesPage() {
       <div
         className="
     p-8 bg-ebcont-magnolia border-2 border-ebcont-darkviolet
-    shadow-2xl shadow-ebcont-darkmint rounded
+    shadow-2xl shadow-ebcont-darkviolet rounded
     text-ebcont-darkviolet
     space-y-8
   "

@@ -44,7 +44,7 @@ export default async function ClientDetailPage({ params }: Props) {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
-      <div className="bg-ebcont-magnolia p-8 rounded shadow-2xl shadow-ebcont-darkmint  border-2 border-ebcont-darkviolet transition-all">
+      <div className="bg-ebcont-magnolia p-8 rounded shadow-2xl shadow-ebcont-darkviolet  border-2 border-ebcont-darkviolet transition-all">
         <h1 className="text-3xl sm:text-4xl font-bold mb-7 text-center text-ebcont-darkviolet tracking-tight drop-shadow-sm">
           {client.name}
         </h1>

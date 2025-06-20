@@ -26,7 +26,7 @@ export default function ConfirmModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-ebcont-magnolia p-6 rounded shadow-2xl shadow-ebcont-darkmint border-2 border-ebcont-darkviolet max-w-sm w-full text-center transition-all">
+      <div className="bg-ebcont-magnolia p-6 rounded shadow-2xl shadow-ebcont-magnolia border-2 border-ebcont-darkviolet max-w-sm w-full text-center transition-all">
         <p className="mb-4 text-ebcont-darkviolet text-base font-semibold">
           {message}
         </p>
