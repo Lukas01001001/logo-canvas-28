@@ -65,32 +65,3 @@ export default function Toast({ message, type = "info", onClose }: ToastProps) {
     </div>
   );
 }
-/* const baseStyle =
-    "fixed top-6 left-1/2 transform -translate-x-1/2 z-50 px-6 py-4 rounded-lg shadow-lg text-white flex items-center space-x-4 transition-all duration-500";
-
-  const colorStyle =
-    type === "success"
-      ? "bg-green-600"
-      : type === "error"
-      ? "bg-red-600"
-      : "bg-blue-600";
-
-  const icon = type === "success" ? "✔" : type === "error" ? "⚠" : "ℹ";
-
-  return (
-    <div
-      className={`${baseStyle} ${colorStyle} ${
-        visible ? "opacity-100 scale-100" : "opacity-0 scale-95"
-      }`}
-    >
-      <span className="text-xl">{icon}</span>
-      <span className="text-base font-medium">{message}</span>
-      <button
-        onClick={onClose}
-        className="ml-auto text-white text-xl hover:opacity-75"
-        aria-label="Close"
-      >
-        ×
-      </button>
-    </div>
-  ); */

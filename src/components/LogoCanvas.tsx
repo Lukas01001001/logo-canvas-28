@@ -226,7 +226,7 @@ export default function LogoCanvas({ clients }: Props) {
   //<<<<<<<<<<<<<<<<<< CANVAS SYNCHRONIZATION !!!!!!!! >>>>>>>>>>>>>>>>>>>>>>>
   // Layout support - logo synchronization on canvas (when changing clients)
   useEffect(() => {
-    if (Object.keys(industryMap).length === 0) return; // DODAJ TO!
+    if (Object.keys(industryMap).length === 0) return; //
     const clientIds = clients.map((c) => c.id);
     const currentLayoutIds = Object.keys(layout).map(Number);
 

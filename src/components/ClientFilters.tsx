@@ -19,6 +19,7 @@ export default function ClientFilters({ availableIndustries }: Props) {
   const [industry, setIndustry] = useState(searchParams.get("industry") || "");
 
   // Update with debounce and cancel
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateQuery = useCallback(
     debounce((newName: string, newIndustry: string) => {
       const params = new URLSearchParams();

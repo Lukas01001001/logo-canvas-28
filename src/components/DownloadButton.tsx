@@ -50,7 +50,7 @@ export default function DownloadButton() {
     text-white font-semibold
     h-12 min-w-[140px] md:text-lg
     px-6 py-2 shadow transition
-    focus:outline-none focus:ring-2 focus:ring-ebcont-darkmint
+    focus:outline-none focus:ring-2 focus:ring-ebcont-activviolet
   "
     >
       Download PNG
