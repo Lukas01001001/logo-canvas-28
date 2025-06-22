@@ -194,8 +194,6 @@ The default logo file (`Tux_Default.png`) is automatically assigned to each clie
 
 ## 🔍 Features
 
-## 🔍 Functionality
-
 - Customer CRUD
 - CRUD Industries
 - Infinite scroll (IntersectionObserver)
