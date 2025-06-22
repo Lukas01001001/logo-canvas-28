@@ -16,7 +16,7 @@
 
 ## 📝 Projektbeschreibung
 
-**Logo Generator** ist eine fortschrittliche Webanwendung zur umfassenden Verwaltung von Kunden und Branchen sowie zum Generieren individueller Logopakete. Benutzer können Kunden und Branchen erstellen, bearbeiten und filtern und anschließend die gewünschten Logos auswählen und interaktiv auf einer Leinwand (Canvas) anordnen.
+**Logo Canvas** ist eine fortschrittliche Webanwendung zur umfassenden Verwaltung von Kunden und Branchen sowie zum Generieren individueller Logopakete. Benutzer können Kunden und Branchen erstellen, bearbeiten und filtern und anschließend die gewünschten Logos auswählen und interaktiv auf einer Leinwand (Canvas) anordnen.
 
 **Wichtige Funktionen:**
 

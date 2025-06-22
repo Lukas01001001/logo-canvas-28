@@ -16,7 +16,7 @@
 
 ## 📝 Project Description
 
-**Logo Generator** is an advanced web application for comprehensive client and industry management, as well as for generating custom logo sets. Users can create, edit, and filter clients and industries, then select the logos they need and arrange them interactively on a canvas.
+**Logo Canvas** is an advanced web application for comprehensive client and industry management, as well as for generating custom logo sets. Users can create, edit, and filter clients and industries, then select the logos they need and arrange them interactively on a canvas.
 
 **Key features include:**
 

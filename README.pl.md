@@ -16,7 +16,7 @@
 
 ## 📝 Opis projektu
 
-**Logo Generator** to rozbudowana aplikacja webowa, która pozwala na kompleksowe zarządzanie klientami i branżami oraz generowanie własnych zestawów logotypów. Użytkownik może tworzyć, edytować i filtrować klientów oraz branże, a następnie wybierać interesujące go logotypy i rozmieszczać je na interaktywnym canvasie (płótnie).
+**Logo Canvas** to rozbudowana aplikacja webowa, która pozwala na kompleksowe zarządzanie klientami i branżami oraz generowanie własnych zestawów logotypów. Użytkownik może tworzyć, edytować i filtrować klientów oraz branże, a następnie wybierać interesujące go logotypy i rozmieszczać je na interaktywnym canvasie (płótnie).
 
 **Ważniejsze funkcjonalności aplikacji:**
 
