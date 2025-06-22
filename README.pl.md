@@ -1,4 +1,4 @@
-# 📘 Logo Generator
+# 📘 Logo Canvas
 
 ## 🧭 Spis treści
 
@@ -16,7 +16,30 @@
 
 ## 📝 Opis projektu
 
-Logo Generator to aplikacja webowa umożliwiająca tworzenie, filtrowanie i zarządzanie klientami oraz generowanie wizualnych reprezentacji logo. Projekt wykorzystuje infinite scroll, SSR/CSR mieszany oraz przemyślaną architekturę frontendu.
+**Logo Generator** to rozbudowana aplikacja webowa, która pozwala na kompleksowe zarządzanie klientami i branżami oraz generowanie własnych zestawów logotypów. Użytkownik może tworzyć, edytować i filtrować klientów oraz branże, a następnie wybierać interesujące go logotypy i rozmieszczać je na interaktywnym canvasie (płótnie).
+
+**Ważniejsze funkcjonalności aplikacji:**
+
+- Obsługa klientów i branż: Pełen CRUD (dodawanie, edycja, usuwanie, przeglądanie) zarówno dla klientów, jak i branż przemysłowych.
+- Wielokrotne filtrowanie i wyszukiwanie: Klientów można filtrować po nazwie i branży, a obsługa nieskończonego przewijania (infinite scroll) pozwala wygodnie pracować nawet z dużą liczbą rekordów.
+- Zbiorcze działania na klientach: Możliwość zaznaczania wielu klientów i generowania zestawu logo z wybranych firm.
+
+**Zaawansowany generator canvas:**
+
+- Przeciąganie, zmiana rozmiaru i układanie wybranych logotypów.
+- Grupowanie logo według branż lub losowe rozmieszczenie na płótnie.
+- Zmiana tła płótna oraz tła pojedynczych logotypów (biały/czarny).
+- Możliwość eksportu gotowej kompozycji do pliku PNG jednym kliknięciem.
+- Zapamiętywanie układu i konfiguracji canvasu między sesjami.
+
+**Nowoczesny frontend:**
+
+- Responsywny interfejs oparty na Next.js 15, React 19 i TailwindCSS 4
+- Szybkie działania bez przeładowań (CSR/SSR)
+- Dobrze przemyślana architektura komponentów
+- Wydajne zarządzanie stanem (Zustand)
+
+Projekt sprawdzi się zarówno jako narzędzie wewnętrzne dla agencji graficznych, jak i demonstracja praktycznych umiejętności w zakresie **Fullstack/Frontend developmentu.**
 
 ## ⚙️ Technologie i biblioteki
 
@@ -93,20 +116,51 @@ Możesz sprawdzić [repozytorium Next.js GitHub](https://github.com/vercel/next.
 
 .
 ├── prisma/
+│ ├── migrations/
 │ ├── schema.prisma
 │ └── seed.ts
-├── src/
-│ ├── app/
-│ ├── components/
-│ │ ├── ClientCard.tsx
-│ │ ├── ClientList.tsx
-│ │ └── ui/
-│ └── lib/
-│ └── db.ts
 ├── public/
 │ └── Tux_Default.png
+├── src/
+│ ├── app/
+│ │ ├── api/
+│ │ │ ├── auth/
+│ │ │ ├── clients/
+│ │ │ └── industries/
+│ │ ├── clients/
+│ │ │ ├── [id]/
+│ │ │ │ ├── edit/
+│ │ │ │ │ └── page.tsx
+│ │ │ │ └── page.tsx
+│ │ │ ├── new/
+│ │ │ │ └── page.tsx
+│ │ │ └── layout.tsx
+│ │ │ └── page.tsx
+│ │ ├── generate/
+│ │ ├── industries/
+│ │ ├── AppProviders.tsx
+│ │ ├── favicon.ico
+│ │ ├── globals.css
+│ │ ├── layout.tsx
+│ │ └── page.tsx
+│ ├── components/
+│ │ ├── ui/
+│ │ ├── ClientCard.tsx
+│ │ ├── ClientList.tsx
+│ │ └── ...
+│ ├── context/
+│ ├── hooks/
+│ ├── store/
+│ ├── utils/
+│ ├── lib/
+│ │ └── db.ts
+│ └── middleware.ts
+├── types/
 ├── .env
-└── package.json
+├── .env.example
+├── .gitignore
+├── package.json
+└── components.json
 
 ````
 
@@ -133,8 +187,7 @@ model Client {
 
 ````
 
-\*\*Klient należy do jednej branży, ale branża jest opcjonalna (klucz obcy o wartości null).
-Osierocone branże są usuwane, gdy ich ostatni klient zostanie usunięty.
+**Klient należy do jednej branży. **
 
 ## 🌱 Seedowanie danych
 
@@ -146,10 +199,16 @@ Domyślny plik logo (`Tux_Default.png`) jest automatycznie dodawany do każdego 
 
 ## 🔍 Funkcjonalności
 
+- CRUD Klientow
+- CRUD Branz przemyslowych
 - Infinite scroll (IntersectionObserver)
 - Filtrowanie po nazwie i branży
 - SSR i CSR połączone logicznie (np. lista branż z SSR)
-- Zaznaczanie wielu klientów i przekierowanie do generacji
+- Zaznaczanie wielu klientów i przekierowanie do generowania wybranych logo na canvas
+- Dodawanie oraz usuwanie kilejnych logo na canvas poprzez modal
+- Opcja wyswietlania logo na canvas w grupach wedlug branz lub mieszanie
+- Zapamietywanie ukaldu i stanu logo na canvas
+- Manipulacja wielkoscia kazdego logo, jego tlem jak i tlem canvas
 
 ## 🖼️ Obsługa logo (grafiki)
 
@@ -157,8 +216,6 @@ Logo przechowywane jest jako `logoBlob` (`Bytes`) i `logoType`. W przypadku brak
 
 ## 📱 Responsywny interfejs i UX
 
-- Przycisk "Generate Logo Forest" umieszczony obok "Reset Checkbox" na desktopie
-- Na mobile pod tytułem
 - Komponenty zoptymalizowane pod Tailwind i skalowanie
 - Płynne UX dzięki debounced input i bez przeładowań
 

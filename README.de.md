@@ -1,4 +1,4 @@
-# 📘 Logo Generator
+# 📘 Logo Canvas
 
 ## 🧭 Inhaltsverzeichnis
 
@@ -16,7 +16,29 @@
 
 ## 📝 Projektbeschreibung
 
-Logo Generator ist eine Webanwendung zur Erstellung, Filterung und Verwaltung von Kunden sowie zur Generierung visueller Logos. Das Projekt nutzt Infinite Scroll, eine Kombination aus SSR/CSR und eine durchdachte Frontend-Architektur.
+**Logo Generator** ist eine fortschrittliche Webanwendung zur umfassenden Verwaltung von Kunden und Branchen sowie zum Generieren individueller Logopakete. Benutzer können Kunden und Branchen erstellen, bearbeiten und filtern und anschließend die gewünschten Logos auswählen und interaktiv auf einer Leinwand (Canvas) anordnen.
+
+**Wichtige Funktionen:**
+
+- Umfassende Verwaltung von Kunden und Branchen: Volle CRUD-Funktionen für Kunden und Branchen.
+- Erweiterte Filter- und Suchfunktionen: Kunden können nach Name oder Branche gefiltert werden; dank “Infinite Scroll” bleibt die Anwendung auch bei großen Datenmengen performant.
+- Sammelaktionen: Auswahl mehrerer Kunden und Generieren eines Logo-Sets aus den gewählten Unternehmen.
+
+**Leistungsstarker Canvas-Generator:**
+
+- Freies Verschieben, Skalieren und Anordnen ausgewählter Logos.
+- Gruppierung der Logos nach Branche oder zufällige Verteilung auf der Leinwand.
+- Anpassung der Hintergrundfarbe des Canvas sowie einzelner Logos (weiß/schwarz).
+- Export der fertigen Komposition als PNG-Datei mit nur einem Klick.
+- Speichern und Wiederherstellen von Layout und Einstellungen zwischen den Sitzungen.
+
+**Modernes Frontend:**
+
+- Responsives UI mit Next.js 15, React 19 und TailwindCSS 4
+- Kombination aus SSR und CSR für schnelle, flüssige Bedienung
+- Saubere Komponenten-Architektur und effizientes globales State-Management (Zustand).
+
+Dieses Projekt eignet sich sowohl als internes Tool für Grafik- oder Marketingagenturen als auch als Referenz für **Fullstack-/Frontend-Know-how** in der Praxis.
 
 ## ⚙️ Technologien und Bibliotheken
 
@@ -92,20 +114,51 @@ Siehe auch das [ Next.js GitHub](https://github.com/vercel/next.js) - Feedback u
 ```
 .
 ├── prisma/
-│   ├── schema.prisma
-│   └── seed.ts
-├── src/
-│   ├── app/
-│   ├── components/
-│   │   ├── ClientCard.tsx
-│   │   ├── ClientList.tsx
-│   │   └── ui/
-│   └── lib/
-│       └── db.ts
+│ ├── migrations/
+│ ├── schema.prisma
+│ └── seed.ts
 ├── public/
-│   └── Tux_Default.png
+│ └── Tux_Default.png
+├── src/
+│ ├── app/
+│ │ ├── api/
+│ │ │ ├── auth/
+│ │ │ ├── clients/
+│ │ │ └── industries/
+│ │ ├── clients/
+│ │ │ ├── [id]/
+│ │ │ │ ├── edit/
+│ │ │ │ │ └── page.tsx
+│ │ │ │ └── page.tsx
+│ │ │ ├── new/
+│ │ │ │ └── page.tsx
+│ │ │ └── layout.tsx
+│ │ │ └── page.tsx
+│ │ ├── generate/
+│ │ ├── industries/
+│ │ ├── AppProviders.tsx
+│ │ ├── favicon.ico
+│ │ ├── globals.css
+│ │ ├── layout.tsx
+│ │ └── page.tsx
+│ ├── components/
+│ │ ├── ui/
+│ │ ├── ClientCard.tsx
+│ │ ├── ClientList.tsx
+│ │ └── ...
+│ ├── context/
+│ ├── hooks/
+│ ├── store/
+│ ├── utils/
+│ ├── lib/
+│ │ └── db.ts
+│ └── middleware.ts
+├── types/
 ├── .env
-└── package.json
+├── .env.example
+├── .gitignore
+├── package.json
+└── components.json
 ```
 
 ## 🗃️ Datenbank und Prisma
@@ -129,8 +182,7 @@ model Client {
 }
 ```
 
-**Der Kunde gehört zu einer Branche, aber die Branche ist optional (nullbarer Fremdschlüssel).
-Verwaiste Branchen werden gelöscht, wenn ihr letzter Kunde entfernt wird.**
+**Der Kunde gehört zu einer Branche.**
 
 ## 🌱 Daten seeden
 
@@ -142,10 +194,16 @@ Die Standard-Logo-Datei (`Tux_Default.png`) wird jedem neuen Client automatisch 
 
 ## 🔍 Funktionen
 
-- Infinite scroll (IntersectionObserver)
+- Kunde CRUD
+- Industrie CRUD
+- Unendliches Blättern (IntersectionObserver)
 - Filterung nach Name und Branche
-- SSR + CSR logisch kombiniert (z. B. Branchenliste mit SSR)
-- Mehrfachauswahl von Clients mit Weiterleitung zur Generierung
+- SSR und CSR logisch verknüpft (z.B. Liste der Branchen mit SSR)
+- Auswahl mehrerer Kunden und Weiterleitung zur Generierung der ausgewählten Logos auf dem Canvas
+- Hinzufügen und Löschen von einzelnen Logos auf der Leinwand über ein Modal
+- Möglichkeit, die Logos auf der Leinwand in Gruppen von Branchen darzustellen oder zu mischen
+- Speicherung von Logo-Layout und -Status auf der Leinwand
+- Manipulation der Größe der einzelnen Logos, ihres Hintergrunds und des Leinwandhintergrunds
 
 ## 🖼️ Logo-Verarbeitung
 
@@ -155,8 +213,6 @@ Im Frontend wird das Logo in `data:image/png;base64,...` dekodiert.
 
 ## 📱 Responsives Interface und UX
 
-- „Generate Logo Forest“-Button neben „Reset Checkbox“ (Desktop)
-- Auf mobilen Geräten unterhalb des Titels
 - Komponenten für Tailwind-Skalierung optimiert
 - Debounced Inputs sorgen für flüssiges UX ohne Neuladen
 

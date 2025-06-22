@@ -1,4 +1,4 @@
-# 📘 Logo Generator
+# 📘 Logo Canvas
 
 ## 🧭 Table of Contents
 
@@ -16,7 +16,29 @@
 
 ## 📝 Project Description
 
-Logo Generator is a web application that allows you to create, filter, and manage clients, as well as generate visual logo representations. The project uses infinite scroll, a hybrid of SSR/CSR, and a well-thought-out frontend architecture.
+**Logo Generator** is an advanced web application for comprehensive client and industry management, as well as for generating custom logo sets. Users can create, edit, and filter clients and industries, then select the logos they need and arrange them interactively on a canvas.
+
+**Key features include:**
+
+- Full client and industry management: Complete CRUD for both clients and industries.
+- Advanced filtering and searching: Filter clients by name or industry; infinite scroll ensures a smooth experience even with large datasets.
+- Bulk actions: Select multiple clients and generate a logo set from chosen companies.
+
+**Powerful canvas generator:**
+
+- Drag, resize, and arrange selected logos freely.
+- Group logos by industry or distribute them randomly across the canvas.
+- Change the background color of the canvas and individual logos (white/black).
+- Export the final composition to a PNG file with a single click.
+- Save and restore the canvas layout and configuration between sessions.
+
+**Modern frontend:**
+
+- Responsive UI built with Next.js 15, React 19, and TailwindCSS 4
+- Combines SSR and CSR for fast, fluid interactions
+- Clean component architecture and efficient global state management (Zustand).
+
+This project is ideal as an internal tool for design or marketing agencies, or as a showcase of real-world **Fullstack/Frontend development skills.**
 
 ## ⚙️ Technologies and Libraries
 
@@ -90,20 +112,51 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 ```
 .
 ├── prisma/
-│   ├── schema.prisma
-│   └── seed.ts
-├── src/
-│   ├── app/
-│   ├── components/
-│   │   ├── ClientCard.tsx
-│   │   ├── ClientList.tsx
-│   │   └── ui/
-│   └── lib/
-│       └── db.ts
+│ ├── migrations/
+│ ├── schema.prisma
+│ └── seed.ts
 ├── public/
-│   └── Tux_Default.png
+│ └── Tux_Default.png
+├── src/
+│ ├── app/
+│ │ ├── api/
+│ │ │ ├── auth/
+│ │ │ ├── clients/
+│ │ │ └── industries/
+│ │ ├── clients/
+│ │ │ ├── [id]/
+│ │ │ │ ├── edit/
+│ │ │ │ │ └── page.tsx
+│ │ │ │ └── page.tsx
+│ │ │ ├── new/
+│ │ │ │ └── page.tsx
+│ │ │ └── layout.tsx
+│ │ │ └── page.tsx
+│ │ ├── generate/
+│ │ ├── industries/
+│ │ ├── AppProviders.tsx
+│ │ ├── favicon.ico
+│ │ ├── globals.css
+│ │ ├── layout.tsx
+│ │ └── page.tsx
+│ ├── components/
+│ │ ├── ui/
+│ │ ├── ClientCard.tsx
+│ │ ├── ClientList.tsx
+│ │ └── ...
+│ ├── context/
+│ ├── hooks/
+│ ├── store/
+│ ├── utils/
+│ ├── lib/
+│ │ └── db.ts
+│ └── middleware.ts
+├── types/
 ├── .env
-└── package.json
+├── .env.example
+├── .gitignore
+├── package.json
+└── components.json
 ```
 
 ## 🗃️ Database and Prisma
@@ -129,8 +182,7 @@ model Client {
 
 ```
 
-**Client belongs to one Industry, but industry is optional (nullable foreign key).
-Orphaned industries are deleted when their last client is removed.**
+**Client belongs to one Industry.**
 
 ## 🌱 Seeding Data
 
@@ -142,10 +194,18 @@ The default logo file (`Tux_Default.png`) is automatically assigned to each clie
 
 ## 🔍 Features
 
-- Infinite scroll (via IntersectionObserver)
+## 🔍 Functionality
+
+- Customer CRUD
+- CRUD Industries
+- Infinite scroll (IntersectionObserver)
 - Filtering by name and industry
-- Logical SSR + CSR combination (e.g., SSR industry list)
-- Select multiple clients and redirect to generation view
+- SSR and CSR logically linked (e.g., list of industries with SSR)
+- Select multiple customers and redirect to generate selected logos on canvas
+- Adding and deleting privileged logos on canvas via modal
+- Option to display logos on canvas in groups according to industries or mixing
+- Storing of logo layout and status on canvas
+- Manipulate the size of each logo, its background and canvas background
 
 ## 🖼️ Logo Handling
 
@@ -155,8 +215,6 @@ In the frontend, logos are decoded into `data:image/png;base64,...` .
 
 ## 📱 Responsive Interface and UX
 
-- "Generate Logo Forest" button placed next to "Reset Checkbox" on desktop
-- On mobile, buttons are displayed below the title
 - Components optimized for Tailwind scaling
 - Smooth UX with debounced inputs and no reloads
 
