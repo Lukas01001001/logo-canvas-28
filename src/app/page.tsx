@@ -46,7 +46,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 to-pink-900 text-white relative overflow-hidden">
       <Image
-        src="/background_logos_ebcont.png"
+        src="/28s_background.png"
         alt="Background logos"
         fill
         className="object-cover opacity-10 pointer-events-none"
@@ -59,9 +59,26 @@ export default function HomePage() {
         transition={{ duration: 1 }}
         className="text-center z-10 p-6"
       >
+        <MotionP
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8, duration: 1 }}
+          className="text-3xl md:text-4xl font-bold max-w-xl mx-auto mb-8"
+        >
+          <a
+            href="https://the28s.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-4 decoration-2 text-white hover:text-ebcont-fuchsia transition"
+            style={{ letterSpacing: "0.04em" }}
+          >
+            the28s.com
+          </a>
+        </MotionP>
+
         <div className="relative w-40 h-40 mx-auto mb-6 flex items-center justify-center">
           {/* SVG */}
-          <svg
+          {/* <svg
             viewBox="0 0 100 100"
             className="absolute inset-0 w-full h-full z-0"
           >
@@ -72,13 +89,13 @@ export default function HomePage() {
               strokeWidth="3"
               // style={{ filter: "drop-shadow(0 4px 24px #0004)" }}
             />
-          </svg>
+          </svg> */}
           {/* Logo */}
           <Image
-            src="/EBCONT_Logo.svg"
+            src="/logo_28_trim_trans.png"
             alt="Logo"
             width={120}
-            height={60}
+            height={120}
             style={{ width: "80%", height: "auto" }}
             className="relative z-10 object-contain"
             priority

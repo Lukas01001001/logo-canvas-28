@@ -33,7 +33,7 @@ export default function AppNavbar() {
       >
         <div className="relative w-30 h-10">
           <Image
-            src="/EBCONT_Logo.svg"
+            src="/logo_28_trim_trans.png"
             alt="Logo"
             fill // <-- fills the whole container
             sizes="60px"
