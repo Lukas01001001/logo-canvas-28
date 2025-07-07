@@ -8,7 +8,7 @@ import LogoCanvas from "@/components/LogoCanvas";
 import DownloadButton from "@/components/DownloadButton";
 
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 import { AddClientsButton } from "@/components/AddClientsButton";
 

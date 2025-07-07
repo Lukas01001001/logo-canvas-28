@@ -7,7 +7,7 @@ import DeleteButton from "@/components/DeleteButton";
 import BackToListButton from "@/components/BackToListButton";
 import { MapPin, Building2 } from "lucide-react";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 type Props = {
   params: Promise<{ id: string }>;

@@ -1,7 +1,7 @@
 // src/app/clients/new/page.tsx
 
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import ClientForm from "@/components/ClientForm";
 import { prisma } from "@/lib/db";
